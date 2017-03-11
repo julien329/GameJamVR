@@ -12,6 +12,7 @@ public class CustomNetworkDiscovery : NetworkDiscovery {
 
     public override void OnReceivedBroadcast(string fromAddress, string data)
     {
+        Debug.Log("This data comes from: " + fromAddress);
         Debug.Log("This data has been received: " + data);
     }
 }
