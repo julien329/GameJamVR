@@ -14,5 +14,6 @@ public class CustomNetworkDiscovery : NetworkDiscovery {
     {
         Debug.Log("This data comes from: " + fromAddress);
         Debug.Log("This data has been received: " + data);
+        Network.Connect(fromAddress, 7777);
     }
 }
