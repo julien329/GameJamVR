@@ -5,6 +5,11 @@ using UnityEngine.Networking;
 
 public class CustomNetworkDiscovery : NetworkDiscovery {
 
+    void Start()
+    {
+        broadcastData = "Hello";
+    }
+
     public override void OnReceivedBroadcast(string fromAddress, string data)
     {
         Debug.Log("This data has been received: " + data);
