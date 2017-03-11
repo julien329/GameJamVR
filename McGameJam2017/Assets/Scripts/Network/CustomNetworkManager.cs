@@ -42,6 +42,7 @@ public class CustomNetworkManager : NetworkManager
 
     public override void OnStopClient()
     {
+        ///si on est deconnecter, on se reconnecte
         discovery.isConnected = false;
         discovery.Initialize();
         discovery.StartAsServer();
@@ -50,27 +51,12 @@ public class CustomNetworkManager : NetworkManager
     public override void OnClientConnect(NetworkConnection conn)
     {
 #if UNITY_ANDROID
-            Debug.Log("Mobile is connected now");
+            Debug.Log("Mobile is connected now");    
 #endif
     }
 
     public override void OnServerConnect(NetworkConnection conn) {
 
-    }
-
-    public override void OnServerDisconnect(NetworkConnection conn)
-    {
-        NetworkServer.DestroyPlayersForConnection(conn);
-        Debug.Log("Connection lost");
-        //if (conn.address == networkAddress)
-            //conn.address;
-        //if (conn.lastError != NetworkError.Ok)
-        //{
-        //    if (LogFilter.logError)
-        //    {
-        //        Debug.LogError("ServerDisconnected due to error: " + conn.lastError);
-        //    }
-        //}
     }
 
 

@@ -6,32 +6,24 @@ using UnityEngine.Networking;
 
 public class PlayerControl : NetworkBehaviour {
 
-    [SyncVar]
-    Vector3 vrPos =  new Vector3();
-
     string address;
 
     void Start()
     {
+        
         if(!isLocalPlayer)
         {
-#if UNITY_STANDALONE
-            gameObject.transform.position = vrPos;
-#endif
             gameObject.name = "OtherPlayer";
             return;
         }
-
         address = connectionToServer.address;
 
 #if UNITY_STANDALONE
-        gameObject.name = "PcPlayer";
-
+    gameObject.name = "PcPlayer";
 #else
-        gameObject.name = "MobilePlayer";
-        gameObject.transform.position = vrPos;
+     gameObject.name = "MobilePlayer";
 #endif
-        RpcUpdatePosition();
+
     }
 
     void Update()
@@ -40,8 +32,7 @@ public class PlayerControl : NetworkBehaviour {
         if (gameObject.name != "MobilePlayer")
             return;
 
-        Touch myTouch = Input.touches[0];
-        if(myTouch.phase == TouchPhase.Began)
+        if(Input.GetMouseButtonDown(0))
         {
             CmdReactToAction(NetworkMsg.MOVE_UP);
         }
@@ -53,27 +44,9 @@ public class PlayerControl : NetworkBehaviour {
     {
 #if UNITY_STANDALONE
             Debug.Log("I am the computer reacting to an action! " + action);
-            var player = GameObject.Find("OtherPlayer");
+            var player = GameObject.Find("PcPlayer");
             player.transform.position += new Vector3(5, 0, 0);
-            vrPos = player.transform.position;
 #endif
     }
 
-    [ClientRpc]
-    public void RpcUpdatePosition()
-    {
-        gameObject.transform.position = vrPos;
-    }
-
-    public void OnDisconnectedFromServer(NetworkDisconnection info)
-    {
-#if UNITY_ANDROID
-        Debug.Log("Disconnected cuz : " + info);
-
-        CustomNetworkManager.singleton.networkAddress = address;
-        CustomNetworkManager.singleton.StartClient();
-# endif
-
-
-    }
 }
