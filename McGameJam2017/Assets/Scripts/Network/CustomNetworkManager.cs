@@ -60,7 +60,7 @@ public class CustomNetworkManager : NetworkManager
 
     public override void OnClientConnect(NetworkConnection conn)
     {
-        if (!Application.isMobilePlatform)
+        if (Application.isMobilePlatform)
         {
             Debug.Log("Mobile is connected now");
             playerPrefab.GetComponent<PlayerControl>().DoShit();
