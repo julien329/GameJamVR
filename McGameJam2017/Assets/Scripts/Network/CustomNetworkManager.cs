@@ -8,6 +8,8 @@ public class CustomNetworkManager : NetworkManager
 
     void Start()
     {
+        connectionConfig.NetworkDropThreshold = 99;
+        connectionConfig.DisconnectTimeout = 100000;
 #if UNITY_ANDROID
         this.StartClient();
 #else

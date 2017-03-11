@@ -6,13 +6,17 @@ using UnityEngine.Networking;
 
 public class PlayerControl : NetworkBehaviour {
 
+    string address;
+
     void Start()
     {
+        address = connectionToServer.address;
         if(!isLocalPlayer)
         {
             gameObject.name = "OtherPlayer";
             return;
         }
+
 
 #if UNITY_STANDALONE
     gameObject.name = "PcPlayer";
@@ -44,5 +48,17 @@ public class PlayerControl : NetworkBehaviour {
             var player = GameObject.Find("PcPlayer");
             player.transform.position += new Vector3(5, 0, 0);
 #endif
+    }
+
+    public void OnDisconnectedFromServer(NetworkDisconnection info)
+    {
+#if UNITY_ANDROID
+        Debug.Log("Disconnected cuz : " + info);
+
+        CustomNetworkManager.singleton.networkAddress = address;
+        CustomNetworkManager.singleton.StartClient();
+# endif
+
+
     }
 }

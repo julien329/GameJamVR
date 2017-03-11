@@ -20,6 +20,7 @@ public class CustomNetworkDiscovery : NetworkDiscovery {
             CustomNetworkManager.singleton.StartClient();
 
             isConnected = true;
-        }        
+            StopBroadcast();
+        }
     }
 }
