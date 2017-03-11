@@ -31,12 +31,12 @@ public class PlayerControl : NetworkBehaviour {
 
         if(Input.GetKeyDown(KeyCode.UpArrow))
         {
-            RpcReactToAction(NetworkMsg.MOVE_UP);
+            CmdReactToAction(NetworkMsg.MOVE_UP);
         }
     }
 
-    [ClientRpc]
-    public void RpcReactToAction(NetworkMsg action)
+    [Command]
+    public void CmdReactToAction(NetworkMsg action)
     {
         if (Application.isMobilePlatform)
         {
@@ -45,6 +45,7 @@ public class PlayerControl : NetworkBehaviour {
         else
         {
             Debug.Log("I am the computer reacting to an action! " + action);
+            gameObject.transform.position += new Vector3(5, 0, 0);
         }
     }
 }

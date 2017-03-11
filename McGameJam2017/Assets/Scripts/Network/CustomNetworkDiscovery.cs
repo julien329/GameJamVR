@@ -5,10 +5,6 @@ using UnityEngine.Networking;
 
 public class CustomNetworkDiscovery : NetworkDiscovery {
     bool isConnected = false;
-    void Start()
-    {
-
-    }
 
     public override void OnReceivedBroadcast(string fromAddress, string data)
     {
