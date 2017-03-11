@@ -17,9 +17,9 @@ public class CustomNetworkDiscovery : NetworkDiscovery {
             Debug.Log("This data comes from: " + fromAddress);
             Debug.Log("This data has been received: " + data);
             //Parse le string
-            //string ip = fromAddress.Remove(0, 7);
-            //Debug.Log(ip);
-            Network.Connect(fromAddress, 7777);
+            string ip = fromAddress.Remove(0, 7);
+            Debug.Log(ip);
+            Network.Connect(ip, 25000);
             isConnected = true;
         }        
     }
