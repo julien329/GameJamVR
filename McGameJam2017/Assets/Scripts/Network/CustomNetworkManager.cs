@@ -74,7 +74,7 @@ public class CustomNetworkManager : NetworkManager
         Debug.Log("Cx has connected");
         Debug.Log(CustomNetworkManager.singleton.numPlayers);
         //VR connect after computer
-        if (CustomNetworkManager.singleton.numPlayers == 2) {
+        if (CustomNetworkManager.singleton.numPlayers == 1) {
             Debug.Log("2 players");
         }
     }
