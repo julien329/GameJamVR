@@ -1,17 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
-public class SceneLoader : MonoBehaviour {
+public class SceneLoader : NetworkBehaviour {
+
+    [SyncVar]
+    int peopleConnected = 0;
 
 	// Use this for initialization
 	void Start () {
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        Debug.Log("This is how many people are connected! " + CustomNetworkManager.singleton.numPlayers);
+        peopleConnected++;
+        Debug.Log("This is how many people are connected! " + peopleConnected);
+    }
+
+    // Update is called once per frame
+    void Update () {
+        //Debug.Log("This is how many people are connected! " + CustomNetworkManager.singleton.numPlayers);
         if(CustomNetworkManager.singleton.numPlayers > 1)
             DoShit();
 
