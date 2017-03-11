@@ -9,7 +9,10 @@ public class PlayerControl : NetworkBehaviour {
     void Start()
     {
         if (!isLocalPlayer)
+        {
+            gameObject.name = "OtherPlayer";
             return;
+        }
 
         if(Application.isMobilePlatform)
         {
@@ -17,21 +20,18 @@ public class PlayerControl : NetworkBehaviour {
         }
         else
         {
-            gameObject.name = "PcPlayer";
+            gameObject.name = "PcPlayer--";
         }
     }
 
-    [Command]
-    public void CmdDoAction(NetworkMsg action)
+    void Update()
     {
-        Debug.Log("Doing the action nao");
-        if(Application.isMobilePlatform)
-        {
-            DispatchAction(action);
-        }
-        else
-        {
+        if (gameObject.name != "PcPlayerC")
+            return;
 
+        if(Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            RpcReactToAction(NetworkMsg.MOVE_UP);
         }
     }
 
@@ -47,18 +47,4 @@ public class PlayerControl : NetworkBehaviour {
             Debug.Log("I am the computer reacting to an action! " + action);
         }
     }
-
-    public void DispatchAction(NetworkMsg action)
-    {
-        if (!isServer)
-            return;
-        RpcReactToAction(action);
-    }
-
-    public void OnLevelWasLoaded(int level)
-    {
-        Debug.Log(level + "Is the scene");
-    }
-    
-
 }
