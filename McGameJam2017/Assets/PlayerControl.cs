@@ -25,20 +25,6 @@ public class PlayerControl : NetworkBehaviour {
         }
     }
 
-    public void DoShit()
-    {
-        NetworkMsg action = NetworkMsg.MOVE_LEFT;
-        Debug.Log("Invoke the shit");
-        if (Application.isMobilePlatform)
-            SceneManager.LoadSceneAsync("MaxMobile");
-        else
-            SceneManager.LoadSceneAsync("MaxPc");
-        if (!isLocalPlayer)
-            return;
-        else
-            CmdDoAction(action);
-    }
-
     [ClientRpc]
     public void RpcReactToAction(NetworkMsg action)
     {

@@ -63,7 +63,6 @@ public class CustomNetworkManager : NetworkManager
         if (Application.isMobilePlatform)
         {
             Debug.Log("Mobile is connected now");
-            playerPrefab.GetComponent<PlayerControl>().DoShit();
         }
         else
         {
