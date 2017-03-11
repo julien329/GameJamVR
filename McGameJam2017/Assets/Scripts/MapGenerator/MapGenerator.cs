@@ -10,4 +10,12 @@ public class MapGenerator : MonoBehaviour {
     {
 
     }
+
+    void Start()
+    {
+        //test
+        //map = new Map();
+        //map.readMapFile("testRead");
+        //map.writeMapFile("testWrite");
+    }
 }

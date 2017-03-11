@@ -5,9 +5,9 @@ using UnityEngine;
 public class Floor {
 
     [SerializeField]
-    static int dim1 = 16;
+    static int dim1 = 32; // ligne
     [SerializeField]
-    static int dim2 = 32;
+    static int dim2 = 16; // colonne
 
     char[][] tiles;
 
@@ -30,6 +30,24 @@ public class Floor {
         set
         {
             tiles = value;
+        }
+    }
+
+    public static int Dim1
+    {
+        get
+        {
+            return dim1;
+
+        }
+    }
+
+    public static int Dim2
+    {
+        get
+        {
+            return dim2;
+
         }
     }
 }

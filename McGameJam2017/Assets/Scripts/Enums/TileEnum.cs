@@ -9,5 +9,7 @@
     NARROW,
     SPIKE,
     SAW,
+    END,
+    START,
     TOTAL
 }
