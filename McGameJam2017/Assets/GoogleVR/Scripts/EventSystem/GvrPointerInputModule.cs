@@ -14,9 +14,9 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-#if UNITY_HAS_GOOGLEVR && (UNITY_ANDROID || UNITY_EDITOR)
+//#if UNITY_HAS_GOOGLEVR && (UNITY_ANDROID || UNITY_EDITOR)
 using UnityEngine.VR;
-#endif  // UNITY_HAS_GOOGLEVR && (UNITY_ANDROID || UNITY_EDITOR)
+//#endif  // UNITY_HAS_GOOGLEVR && (UNITY_ANDROID || UNITY_EDITOR)
 
 /// This script provides an implemention of Unity's `BaseInputModule` class, so
 /// that Canvas-based (_uGUI_) UI elements and 3D scene objects can be
@@ -501,13 +501,13 @@ public class GvrPointerInputModule : BaseInputModule {
   private Vector2 GetViewportCenter() {
     int viewportWidth = Screen.width;
     int viewportHeight = Screen.height;
-    #if UNITY_HAS_GOOGLEVR && (UNITY_ANDROID || UNITY_EDITOR) && UNITY_ANDROID
+    //#if UNITY_HAS_GOOGLEVR && (UNITY_ANDROID || UNITY_EDITOR) && UNITY_ANDROID
     // GVR native integration is supported.
     if (VRSettings.enabled) {
       viewportWidth = VRSettings.eyeTextureWidth;
       viewportHeight = VRSettings.eyeTextureHeight;
     }
-    #endif  // UNITY_HAS_GOOGLEVR && (UNITY_ANDROID || UNITY_EDITOR) && UNITY_ANDROID
+   // #endif  // UNITY_HAS_GOOGLEVR && (UNITY_ANDROID || UNITY_EDITOR) && UNITY_ANDROID
 
     return new Vector2(0.5f * viewportWidth, 0.5f * viewportHeight);
   }
