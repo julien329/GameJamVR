@@ -17,8 +17,10 @@ public class PlayerControl : NetworkBehaviour {
 
 #if UNITY_STANDALONE
     gameObject.name = "PcPlayer";
+        GameObject.Find("ServerInfo").GetComponent<ServerSync>().HardResetPos();
 #else
      gameObject.name = "MobilePlayer";
+        GameObject.Find("ServerInfo").GetComponent<ServerSync>().HardResetPos();
 #endif
 
     }
@@ -43,6 +45,30 @@ public class PlayerControl : NetworkBehaviour {
             Debug.Log("I am the computer reacting to an action! " + action);
             var player = GameObject.Find("PcPlayer");
             player.transform.position += new Vector3(5, 0, 0);
+            //GameObject.Find("ServerInfo").GetComponent<ServerSync>().posPc = player.transform.position;
+            //GameObject.Find("ServerInfo").GetComponent<ServerSync>().posMobile = player.transform.position;
+        GameObject.Find("ServerInfo").GetComponent<ServerSync>().CmdUpdatePosition(player.transform.position);
+
+#endif
+    }
+
+    [ClientRpc]
+    public void RpcUpdatePosition(Vector3 position)
+    {
+#if UNITY_STANDALONE
+        var obj = GameObject.Find("PcPlayer");
+        if(obj != null)
+            obj.transform.position = position;
+        obj = GameObject.Find("OtherPlayer");
+        if (obj != null)
+            obj.transform.position = position;
+#elif UNITY_ANDROID
+        var obj = GameObject.Find("MobilePlayer");
+        if (obj != null)
+            obj.transform.position = position;
+        obj = GameObject.Find("OtherPlayer");
+        if (obj != null)
+            obj.transform.position = position;
 #endif
     }
 
