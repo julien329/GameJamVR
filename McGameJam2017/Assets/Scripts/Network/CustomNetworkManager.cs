@@ -12,12 +12,11 @@ public class CustomNetworkManager : NetworkManager
     {
         if(Application.isMobilePlatform)
         {
-            //this.StartClient();
+            this.StartClient();
         }
         else
         {
-            if(this.numPlayers < 1)
-                myComputerClient = this.StartHost();
+            myComputerClient = this.StartHost();
         }
 
     }
@@ -61,17 +60,22 @@ public class CustomNetworkManager : NetworkManager
 
     public override void OnClientConnect(NetworkConnection conn)
     {
-        if (Application.isMobilePlatform)
+        if (!Application.isMobilePlatform)
         {
-            playerPrefab.GetComponent<PlayerControl>().CmdDoAction(NetworkMsg.MOVE_DOWN);
+            Debug.Log("Mobile is connected now");
+            playerPrefab.GetComponent<PlayerControl>().DoShit();
+        }
+        else
+        {
+            Debug.Log("I am a normal boring client");
         }
     }
 
     public override void OnServerConnect(NetworkConnection conn) {
         Debug.Log("Cx has connected");
-        Debug.Log(numPlayers);
+        Debug.Log(CustomNetworkManager.singleton.numPlayers);
         //VR connect after computer
-        if (this.numPlayers == 1) {
+        if (CustomNetworkManager.singleton.numPlayers == 2) {
             Debug.Log("2 players");
         }
     }

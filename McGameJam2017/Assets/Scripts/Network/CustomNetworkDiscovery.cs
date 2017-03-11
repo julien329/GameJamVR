@@ -7,7 +7,7 @@ public class CustomNetworkDiscovery : NetworkDiscovery {
     bool isConnected = false;
     void Start()
     {
-        broadcastData = "Hello";
+
     }
 
     public override void OnReceivedBroadcast(string fromAddress, string data)
