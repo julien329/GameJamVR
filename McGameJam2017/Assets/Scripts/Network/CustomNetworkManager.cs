@@ -4,7 +4,7 @@ using UnityEngine.Networking;
 
 public class CustomNetworkManager : NetworkManager
 {
-    public NetworkDiscovery discovery;
+    public CustomNetworkDiscovery discovery;
 
     void Start()
     {
@@ -34,6 +34,7 @@ public class CustomNetworkManager : NetworkManager
         ///computer connect to the server
 
 #if UNITY_ANDROID
+        discovery.Initialize();
         discovery.StartAsClient();
 #endif
 
@@ -41,14 +42,16 @@ public class CustomNetworkManager : NetworkManager
 
     public override void OnStopClient()
     {
-        discovery.StopBroadcast();
-        discovery.showGUI = true;
+        ///si on est deconnecter, on se reconnecte
+        discovery.isConnected = false;
+        discovery.Initialize();
+        discovery.StartAsServer();
     }
 
     public override void OnClientConnect(NetworkConnection conn)
     {
 #if UNITY_ANDROID
-            Debug.Log("Mobile is connected now");
+            Debug.Log("Mobile is connected now");    
 #endif
     }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 
 public class CustomNetworkDiscovery : NetworkDiscovery {
-    bool isConnected = false;
+    public bool isConnected = false;
 
     public override void OnReceivedBroadcast(string fromAddress, string data)
     {
@@ -20,7 +20,6 @@ public class CustomNetworkDiscovery : NetworkDiscovery {
             CustomNetworkManager.singleton.StartClient();
 
             isConnected = true;
-            StopBroadcast();
         }
     }
 }

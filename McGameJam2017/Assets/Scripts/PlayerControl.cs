@@ -10,18 +10,18 @@ public class PlayerControl : NetworkBehaviour {
 
     void Start()
     {
-        address = connectionToServer.address;
+        
         if(!isLocalPlayer)
         {
             gameObject.name = "OtherPlayer";
             return;
         }
-
+        address = connectionToServer.address;
 
 #if UNITY_STANDALONE
     gameObject.name = "PcPlayer";
 #else
-    gameObject.name = "MobilePlayer";
+     gameObject.name = "MobilePlayer";
 #endif
 
     }
@@ -32,8 +32,7 @@ public class PlayerControl : NetworkBehaviour {
         if (gameObject.name != "MobilePlayer")
             return;
 
-        Touch myTouch = Input.touches[0];
-        if(myTouch.phase == TouchPhase.Began)
+        if(Input.GetMouseButtonDown(0))
         {
             CmdReactToAction(NetworkMsg.MOVE_UP);
         }
@@ -50,15 +49,4 @@ public class PlayerControl : NetworkBehaviour {
 #endif
     }
 
-    public void OnDisconnectedFromServer(NetworkDisconnection info)
-    {
-#if UNITY_ANDROID
-        Debug.Log("Disconnected cuz : " + info);
-
-        CustomNetworkManager.singleton.networkAddress = address;
-        CustomNetworkManager.singleton.StartClient();
-# endif
-
-
-    }
 }
