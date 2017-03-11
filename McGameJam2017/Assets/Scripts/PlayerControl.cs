@@ -8,44 +8,41 @@ public class PlayerControl : NetworkBehaviour {
 
     void Start()
     {
-        if (!isLocalPlayer)
+        if(!isLocalPlayer)
         {
             gameObject.name = "OtherPlayer";
             return;
         }
 
-        if(Application.isMobilePlatform)
-        {
-            gameObject.name = "MobilePlayer";
-        }
-        else
-        {
-            gameObject.name = "PcPlayer--";
-        }
+#if UNITY_STANDALONE
+    gameObject.name = "PcPlayer";
+#else
+    gameObject.name = "MobilePlayer";
+#endif
+
     }
 
     void Update()
     {
-        if (gameObject.name != "PcPlayerC")
+#if UNITY_ANDROID
+        if (gameObject.name != "MobilePlayer")
             return;
 
-        if(Input.GetKeyDown(KeyCode.UpArrow))
+        Touch myTouch = Input.touches[0];
+        if(myTouch.phase == TouchPhase.Began)
         {
             CmdReactToAction(NetworkMsg.MOVE_UP);
         }
+#endif
     }
 
     [Command]
     public void CmdReactToAction(NetworkMsg action)
     {
-        if (Application.isMobilePlatform)
-        {
-
-        }
-        else
-        {
+#if UNITY_STANDALONE
             Debug.Log("I am the computer reacting to an action! " + action);
-            gameObject.transform.position += new Vector3(5, 0, 0);
-        }
+            var player = GameObject.Find("PcPlayer");
+            player.transform.position += new Vector3(5, 0, 0);
+#endif
     }
 }

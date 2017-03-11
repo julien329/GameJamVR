@@ -8,15 +8,11 @@ public class CustomNetworkManager : NetworkManager
 
     void Start()
     {
-        if(Application.isMobilePlatform)
-        {
-            this.StartClient();
-        }
-        else
-        {
-            this.StartHost();
-        }
-
+#if UNITY_ANDROID
+        this.StartClient();
+#else
+        this.StartHost();
+#endif
     }
 
     public override void OnStartHost()
@@ -34,14 +30,11 @@ public class CustomNetworkManager : NetworkManager
     {
         discovery.showGUI = false;
         ///computer connect to the server
-        if (Application.isMobilePlatform)
-        {
-            discovery.StartAsClient();
-        }
-        else
-        {
 
-        }
+#if UNITY_ANDROID
+        discovery.StartAsClient();
+#endif
+
     }
 
     public override void OnStopClient()
@@ -52,14 +45,9 @@ public class CustomNetworkManager : NetworkManager
 
     public override void OnClientConnect(NetworkConnection conn)
     {
-        if (Application.isMobilePlatform)
-        {
+#if UNITY_ANDROID
             Debug.Log("Mobile is connected now");
-        }
-        else
-        {
-            Debug.Log("I am a normal boring client");
-        }
+#endif
     }
 
     public override void OnServerConnect(NetworkConnection conn) {
