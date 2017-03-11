@@ -59,6 +59,14 @@ public class CustomNetworkManager : NetworkManager
         discovery.showGUI = true;
     }
 
+    public override void OnClientConnect(NetworkConnection conn)
+    {
+        if (Application.isMobilePlatform)
+        {
+            playerPrefab.GetComponent<PlayerControl>().CmdDoAction(NetworkMsg.MOVE_DOWN);
+        }
+    }
+
     public override void OnServerConnect(NetworkConnection conn) {
         Debug.Log("Cx has connected");
         Debug.Log(numPlayers);
