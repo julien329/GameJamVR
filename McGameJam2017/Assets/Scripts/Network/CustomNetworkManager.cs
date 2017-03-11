@@ -4,7 +4,7 @@ using UnityEngine.Networking;
 
 public class CustomNetworkManager : NetworkManager
 {
-    public NetworkDiscovery discovery;
+    public CustomNetworkDiscovery discovery;
 
     void Start()
     {
@@ -34,6 +34,7 @@ public class CustomNetworkManager : NetworkManager
         ///computer connect to the server
 
 #if UNITY_ANDROID
+        discovery.Initialize();
         discovery.StartAsClient();
 #endif
 
@@ -41,8 +42,9 @@ public class CustomNetworkManager : NetworkManager
 
     public override void OnStopClient()
     {
-        discovery.StopBroadcast();
-        discovery.showGUI = true;
+        discovery.isConnected = false;
+        discovery.Initialize();
+        discovery.StartAsServer();
     }
 
     public override void OnClientConnect(NetworkConnection conn)
@@ -54,6 +56,21 @@ public class CustomNetworkManager : NetworkManager
 
     public override void OnServerConnect(NetworkConnection conn) {
 
+    }
+
+    public override void OnServerDisconnect(NetworkConnection conn)
+    {
+        NetworkServer.DestroyPlayersForConnection(conn);
+        Debug.Log("Connection lost");
+        //if (conn.address == networkAddress)
+            //conn.address;
+        //if (conn.lastError != NetworkError.Ok)
+        //{
+        //    if (LogFilter.logError)
+        //    {
+        //        Debug.LogError("ServerDisconnected due to error: " + conn.lastError);
+        //    }
+        //}
     }
 
 
