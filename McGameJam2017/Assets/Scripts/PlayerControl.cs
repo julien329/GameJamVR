@@ -11,7 +11,7 @@ public class PlayerControl : NetworkBehaviour {
         if(isServer)
         {
 #if UNITY_STANDALONE
-            InvokeRepeating("Rpc", 1, 1);
+
 #endif
         }
 

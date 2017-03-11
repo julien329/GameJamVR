@@ -11,3 +11,14 @@
     SAW,
     TOTAL
 }
+
+public enum TileReal
+{
+    NORMAL,
+    WALL,
+    NAILS,
+    FIRE,
+    WEAKFLOOR,
+    HOLE,
+    TOTAL
+}
