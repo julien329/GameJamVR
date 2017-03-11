@@ -18,8 +18,8 @@ public class SceneLoader : NetworkBehaviour {
     // Update is called once per frame
     void Update () {
         //Debug.Log("This is how many people are connected! " + CustomNetworkManager.singleton.numPlayers);
-        if (CustomNetworkManager.singleton.numPlayers > 1)
-            DoShit();
+        //if (CustomNetworkManager.singleton.numPlayers > 1)
+           // DoShit();
 
     }
 

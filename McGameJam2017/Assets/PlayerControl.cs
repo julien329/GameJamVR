@@ -8,7 +8,17 @@ public class PlayerControl : NetworkBehaviour {
 
     void Start()
     {
+        if (!isLocalPlayer)
+            return;
 
+        if(Application.isMobilePlatform)
+        {
+            gameObject.name = "MobilePlayer";
+        }
+        else
+        {
+            gameObject.name = "PcPlayer";
+        }
     }
 
     [Command]
@@ -44,5 +54,11 @@ public class PlayerControl : NetworkBehaviour {
             return;
         RpcReactToAction(action);
     }
+
+    public void OnLevelWasLoaded(int level)
+    {
+        Debug.Log(level + "Is the scene");
+    }
+    
 
 }
