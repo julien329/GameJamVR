@@ -19,7 +19,10 @@ public class CustomNetworkDiscovery : NetworkDiscovery {
             //Parse le string
             string ip = fromAddress.Remove(0, 7);
             Debug.Log(ip);
-            Network.Connect(ip, 25000);
+            //Network.Connect(ip, 25000);
+            CustomNetworkManager.singleton.networkAddress = ip;
+            CustomNetworkManager.singleton.StartClient();
+
             isConnected = true;
         }        
     }

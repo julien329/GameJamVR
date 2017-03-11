@@ -29,6 +29,11 @@ public class CustomNetworkManager : NetworkManager
         discovery.StartAsServer();
     }
 
+    public override void OnServerReady(NetworkConnection conn)
+    {
+        Debug.Log("Server is ready to go");
+    }
+
     public override void OnStartClient(NetworkClient client)
     {
         //discovery.showGUI = false;
@@ -42,6 +47,8 @@ public class CustomNetworkManager : NetworkManager
         else
         {
             myComputerClient = client;
+            Debug.Log(myComputerClient.serverIp);
+            Debug.Log(myComputerClient.serverPort);
         }
         //myComputerClient.Connect(client.serverIp.ToString(), myComputerClient.serverPort);
     }
