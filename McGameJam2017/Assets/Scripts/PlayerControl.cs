@@ -33,7 +33,9 @@ public class PlayerControl : NetworkBehaviour {
 
         if(Input.GetMouseButtonDown(0))
         {
-            CmdReactToAction(NetworkMsg.MOVE_UP);
+            if (isLocalPlayer) {
+                CmdReactToAction(NetworkMsg.MOVE_UP);
+            }
         }
 #endif
     }
@@ -45,10 +47,10 @@ public class PlayerControl : NetworkBehaviour {
             Debug.Log("I am the computer reacting to an action! " + action);
             var player = GameObject.Find("PcPlayer");
             player.transform.position += new Vector3(5, 0, 0);
+            RpcUpdatePosition(player.transform.position);
             //GameObject.Find("ServerInfo").GetComponent<ServerSync>().posPc = player.transform.position;
             //GameObject.Find("ServerInfo").GetComponent<ServerSync>().posMobile = player.transform.position;
-        GameObject.Find("ServerInfo").GetComponent<ServerSync>().CmdUpdatePosition(player.transform.position);
-
+            //GameObject.Find("ServerInfo").GetComponent<ServerSync>().CmdUpdatePosition(player.transform.position);
 #endif
     }
 
