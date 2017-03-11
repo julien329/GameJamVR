@@ -59,11 +59,14 @@ public class CustomNetworkManager : NetworkManager
         discovery.showGUI = true;
     }
 
-    public override void OnClientConnect(NetworkConnection conn) {
+    public override void OnServerConnect(NetworkConnection conn) {
         Debug.Log("Cx has connected");
+        Debug.Log(numPlayers);
         //VR connect after computer
-        if (this.numPlayers == 2) {
+        if (this.numPlayers == 1) {
             Debug.Log("2 players");
         }
     }
+
+
 }

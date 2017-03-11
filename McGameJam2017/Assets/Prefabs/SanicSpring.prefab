@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 65112517129653946}
   - component: {fileID: 23399368326115384}
   m_Layer: 0
-  m_Name: sanicSpring
+  m_Name: SanicSpring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
