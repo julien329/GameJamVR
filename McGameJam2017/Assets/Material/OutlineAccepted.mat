@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: OutlineAllowed
+  m_Name: OutlineAccepted
   m_Shader: {fileID: 4800000, guid: dadfcbf3fd9ab9e4ba80fe75af45f5a0, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -43,4 +43,4 @@ Material:
       second: {r: 0, g: 1, b: 1, a: 1}
     - first:
         name: _MKGlowTexColor
-      second: {r: 0, g: 1, b: 1, a: 0.49803922}
+      second: {r: 0, g: 1, b: 1, a: 0.2509804}

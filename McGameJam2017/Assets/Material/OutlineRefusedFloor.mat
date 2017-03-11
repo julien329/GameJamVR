@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: OutlineRefused
+  m_Name: OutlineRefusedFloor
   m_Shader: {fileID: 4800000, guid: dadfcbf3fd9ab9e4ba80fe75af45f5a0, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -37,10 +37,10 @@ Material:
     m_Colors:
     - first:
         name: _Color
-      second: {r: 1, g: 0, b: 0, a: 0}
+      second: {r: 1, g: 0, b: 0, a: 0.941}
     - first:
         name: _MKGlowColor
       second: {r: 1, g: 0, b: 0, a: 1}
     - first:
         name: _MKGlowTexColor
-      second: {r: 1, g: 0, b: 0, a: 0.49803922}
+      second: {r: 1, g: 0, b: 0, a: 0.2509804}
