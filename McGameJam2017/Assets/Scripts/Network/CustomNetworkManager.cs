@@ -55,9 +55,13 @@ public class CustomNetworkManager : NetworkManager
 #endif
     }
 
-    public override void OnServerConnect(NetworkConnection conn) {
+    public override void OnServerDisconnect(NetworkConnection conn)
+    {
+        Debug.Log("Oh now! Disconnect!");
+        NetworkServer.DestroyPlayersForConnection(conn);
 
     }
+
 
 
 }

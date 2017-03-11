@@ -6,8 +6,6 @@ using UnityEngine.Networking;
 
 public class PlayerControl : NetworkBehaviour {
 
-    string address;
-
     void Start()
     {
         
@@ -16,7 +14,6 @@ public class PlayerControl : NetworkBehaviour {
             gameObject.name = "OtherPlayer";
             return;
         }
-        address = connectionToServer.address;
 
 #if UNITY_STANDALONE
     gameObject.name = "PcPlayer";
