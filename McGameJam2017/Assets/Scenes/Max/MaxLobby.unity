@@ -279,6 +279,7 @@ MonoBehaviour:
   m_ShowGUI: 1
   m_OffsetX: 0
   m_OffsetY: 0
+  isConnected: 0
 --- !u!114 &1008253649
 MonoBehaviour:
   m_ObjectHideFlags: 0

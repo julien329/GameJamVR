@@ -8,10 +8,17 @@ public class PlayerControl : NetworkBehaviour {
 
     void Start()
     {
-        
-        if(!isLocalPlayer)
+        if(isServer)
+        {
+#if UNITY_STANDALONE
+            InvokeRepeating("Rpc", 1, 1);
+#endif
+        }
+
+        if (!isLocalPlayer)
         {
             gameObject.name = "OtherPlayer";
+
             return;
         }
 
@@ -34,6 +41,7 @@ public class PlayerControl : NetworkBehaviour {
         if(Input.GetMouseButtonDown(0))
         {
             if (isLocalPlayer) {
+                transform.position += new Vector3(5, 0, 0);
                 CmdReactToAction(NetworkMsg.MOVE_UP);
             }
         }
@@ -72,6 +80,16 @@ public class PlayerControl : NetworkBehaviour {
         if (obj != null)
             obj.transform.position = position;
 #endif
+    }
+
+    void OnPlayerConnected(NetworkPlayer player)
+    {
+            Debug.Log("Hey Baby");
+    }
+
+    void HardUpdate()
+    {
+        RpcUpdatePosition(gameObject.transform.position);
     }
 
 }
