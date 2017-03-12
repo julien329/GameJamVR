@@ -99,13 +99,9 @@ public class PlayerControlVR : MonoBehaviour {
 
 
     private Transform RaycastFloor() {
-#if UNITY_STANDALONE
         Quaternion headRotation = InputTracking.GetLocalRotation(VRNode.Head);
-        Vector3 rayRotation = headRotation * cameraVr.transform.forward;
-#else
-        Quaternion headRotation = InputTracking.GetLocalRotation(VRNode.Head);
-        Vector3 rayRotation = headRotation * Vector3.forward;
-#endif
+        //Vector3 rayRotation = headRotation * Vector3.forward;                         // VR
+        Vector3 rayRotation = headRotation * cameraVr.transform.forward;              // PC
 
         Ray rayDirection = new Ray(transform.position, rayRotation);
         if (Physics.Raycast(rayDirection, out hit, cubeMask)) {
