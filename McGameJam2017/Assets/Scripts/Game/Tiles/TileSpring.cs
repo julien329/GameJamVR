@@ -13,7 +13,7 @@ public class TileSpring : ITileEffect {
     [SerializeField]
     private float tileWidth = 2.0f;
     private Rigidbody playerRigidbody;
-    private SelectionOutline selectionOutline;
+    private PlayerControlVR selectionOutline;
     private Transform playerTransform;
     private Vector3 targetPos;
 
@@ -25,7 +25,7 @@ public class TileSpring : ITileEffect {
     void Awake () {
         GameObject player = GameObject.Find("PlayerVR");
         playerRigidbody = player.GetComponent<Rigidbody>();
-        selectionOutline = player.GetComponent<SelectionOutline>();
+        selectionOutline = player.GetComponent<PlayerControlVR>();
         playerTransform = player.transform;
 	}
 
