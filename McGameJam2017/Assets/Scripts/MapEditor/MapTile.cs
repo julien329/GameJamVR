@@ -10,7 +10,11 @@ public class MapTile : MonoBehaviour{
 
     public int x;
     public int y;
-    public TileType tileType;
+    //public TileType tileType;
+    //Remplacer par un int pour rapidement adapter le script au deux types de floor (VR et REAL)
+    public int tileEnumId;
+    public int offset = (int)TileType.TOTAL; // le offset permettra de faire la difference entre les tiles VR et les tiles R
+    // Donc, on a 0 a TileType.TOTAL-1 pour les tiles R et TileType.TOTAL a TileType.TOTAL+TileReal.TOTAL.
 
     void Awake()
     {
@@ -37,11 +41,11 @@ public class MapTile : MonoBehaviour{
     void SetTileType(TileType type)
     {
         //Makes sure if we are deleting a teleport up and down to delete its corresponding portal
-        if (tileType == TileType.TELEPORT_UP)
+        if (tileEnumId == (int)TileType.TELEPORT_UP)
         {
             mapArea.UpdateTileValue(x, y, mapArea.currentFloor + 1, TileType.NORMAL);
         }
-        else if (tileType == TileType.TELEPORT_DOWN)
+        else if (tileEnumId == (int)TileType.TELEPORT_DOWN)
         {
             mapArea.UpdateTileValue(x, y, mapArea.currentFloor - 1, TileType.NORMAL);
         }

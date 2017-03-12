@@ -13,6 +13,7 @@ public class MapAreaScript : MonoBehaviour {
     int[,] floor1;
     int[,] floor2;
     int[,] floor3;
+    int[,] floorReal;
     public int currentFloor = 0;
 
     public GameObject basePanel;
@@ -25,6 +26,7 @@ public class MapAreaScript : MonoBehaviour {
         floor1 = new int[mapHeight, mapWidth];
         floor2 = new int[mapHeight, mapWidth];
         floor3 = new int[mapHeight, mapWidth];
+        floorReal = new int[mapHeight, mapWidth];
 
         mapTiles = new GameObject[mapHeight][];
         for(int i = 0; i < mapHeight; ++i)
@@ -41,6 +43,7 @@ public class MapAreaScript : MonoBehaviour {
                 floor1[i, j] = 0;
                 floor2[i, j] = 0;
                 floor3[i, j] = 0;
+                floorReal[i, j] = 0;
 
                 var newPanel = Instantiate(basePanel);
                 newPanel.transform.parent = this.transform;
@@ -67,6 +70,9 @@ public class MapAreaScript : MonoBehaviour {
             case 2:
                 selectedFloor = floor3;
                 break;
+            case 3:
+                selectedFloor = floorReal;
+                break;
             default:
                 selectedFloor = floor1;
                 break;
@@ -77,7 +83,16 @@ public class MapAreaScript : MonoBehaviour {
             for(int j = 0; j < mapWidth; j++)
             {
                 mapTiles[i][j].GetComponent<Image>().sprite = textures[selectedFloor[i, j]];
-                mapTiles[i][j].GetComponent<MapTile>().tileType = (TileType)selectedFloor[i, j];
+                //mapTiles[i][j].GetComponent<MapTile>().tileType = (TileType)selectedFloor[i, j];
+
+                if (floor == 3)
+                {
+                    mapTiles[i][j].GetComponent<MapTile>().tileEnumId = selectedFloor[i, j] + mapTiles[i][j].GetComponent<MapTile>().offset;
+                }
+                else
+                {
+                    mapTiles[i][j].GetComponent<MapTile>().tileEnumId = selectedFloor[i, j];
+                }
             }
         }
     }
@@ -95,13 +110,26 @@ public class MapAreaScript : MonoBehaviour {
             case 2:
                 floor3[y, x] = (int)type;
                 break;
+            case 3:
+                floorReal[y, x] = (int)type;
+                break;
         }
 
         //If we are editing the current floor, make sure we update the visuals
         if(floor == currentFloor)
         {
             mapTiles[y][x].GetComponent<Image>().sprite = textures[(int)type];
-            mapTiles[y][x].GetComponent<MapTile>().tileType = type;
+            //mapTiles[y][x].GetComponent<MapTile>().tileType = type;
+
+            //selon si le floor est de type VR ou real.
+            if (floor == 3)
+            {
+                mapTiles[y][x].GetComponent<MapTile>().tileEnumId = (int)type + mapTiles[y][x].GetComponent<MapTile>().offset;
+            }
+            else
+            {
+                mapTiles[y][x].GetComponent<MapTile>().tileEnumId = (int)type;
+            }
         }
     }
 
@@ -110,7 +138,7 @@ public class MapAreaScript : MonoBehaviour {
     {
         // Call a function of Map that uses the floors to create a save (text file).
         Map tempMap = new Map();
-        tempMap.saveMapFromEditor(floor1, floor2, floor3);
+        tempMap.saveMapFromEditor(floor1, floor2, floor3, floorReal);
     }
 
     // Load
