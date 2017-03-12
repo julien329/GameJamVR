@@ -55,6 +55,8 @@ GameObject:
   - component: {fileID: 114400732435513720}
   - component: {fileID: 54380297497242896}
   - component: {fileID: 136348387003207960}
+  - component: {fileID: 114370535550051640}
+  - component: {fileID: 114046931459800652}
   m_Layer: 0
   m_Name: PlayerVR
   m_TagString: Untagged
@@ -130,7 +132,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1616375509063500}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalPosition: {x: -2.1817608, y: 0.39281607, z: 6.288632}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4209534482098612}
@@ -245,6 +247,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reticleSegments: 20
   reticleGrowthSpeed: 8
+--- !u!114 &114046931459800652
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1616375509063500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3c7d2b1f9c865f44bbe4f86793bdeb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114057677602235274
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -271,6 +284,38 @@ MonoBehaviour:
   blurIterations: 7
   glowIntensity: 0.6
   samples: 3
+--- !u!114 &114370535550051640
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1616375509063500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 235
+    i1: 97
+    i2: 186
+    i3: 82
+    i4: 254
+    i5: 27
+    i6: 60
+    i7: 20
+    i8: 104
+    i9: 87
+    i10: 71
+    i11: 45
+    i12: 34
+    i13: 39
+    i14: 49
+    i15: 183
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114370770350767276
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -302,7 +347,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraVr: {fileID: 20180177099044046}
-  outlineTransform: {fileID: 0}
+  outlineTransform: {fileID: 4579252984605352, guid: 3d454c2f6587e9149803c0c0a458cb8f,
+    type: 2}
   outlineAccepted: {fileID: 0}
   outlineRefused: {fileID: 0}
   cubeMask:
@@ -311,6 +357,7 @@ MonoBehaviour:
   unitWidth: 2
   cameraHeight: 2
   moveSpeed: 3
+  targetableHeightMargin: 0.2
 --- !u!114 &114490471858217840
 MonoBehaviour:
   m_ObjectHideFlags: 1

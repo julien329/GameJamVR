@@ -39,7 +39,16 @@ public class PlayerControlVR : MonoBehaviour {
     /// UNITY
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
+    void Awake() {
+        outlineAccepted = outlineTransform.GetChild(0).gameObject;
+        outlineAccepted.SetActive(false);
+        outlineRefused = outlineTransform.GetChild(1).gameObject;
+        outlineRefused.SetActive(false);
+    }
+
+
     void Update () {
+#if UNITY_ANDROID
         if (Input.GetMouseButton(0)) {
             UpdateOutlineBox();
         }
@@ -52,6 +61,7 @@ public class PlayerControlVR : MonoBehaviour {
             outlineAccepted.SetActive(false);
             outlineRefused.SetActive(false);
         }
+#endif
     }
 
 
@@ -60,6 +70,7 @@ public class PlayerControlVR : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     private void UpdateOutlineBox() {
+#if UNITY_ANDROID
         Transform objectHit = RaycastFloor();
         if (objectHit && !isMoving) {
             outlineTransform.position = objectHit.position;
@@ -83,14 +94,16 @@ public class PlayerControlVR : MonoBehaviour {
             outlineAccepted.SetActive(false);
             outlineRefused.SetActive(false);
         }
+#endif
     }
 
 
     private Transform RaycastFloor() {
-        Quaternion headRotation = InputTracking.GetLocalRotation(VRNode.Head);
 #if UNITY_STANDALONE
+        Quaternion headRotation = InputTracking.GetLocalRotation(VRNode.Head);
         Vector3 rayRotation = headRotation * cameraVr.transform.forward;
 #else
+        Quaternion headRotation = InputTracking.GetLocalRotation(VRNode.Head);
         Vector3 rayRotation = headRotation * Vector3.forward;
 #endif
 
@@ -106,6 +119,7 @@ public class PlayerControlVR : MonoBehaviour {
 
 
     private IEnumerator MoveToOutline() {
+
         Vector3 lastPos = this.transform.position;
         Vector3 targetPos = new Vector3(outlineTransform.position.x, this.transform.position.y, outlineTransform.position.z);
         isMoving = true;

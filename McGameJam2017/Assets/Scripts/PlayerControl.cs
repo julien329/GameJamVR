@@ -24,6 +24,7 @@ public class PlayerControl : NetworkBehaviour {
 
 #if UNITY_STANDALONE
     gameObject.name = "PcPlayer";
+        GameObject.Find("PlayerMod").transform.SetParent(gameObject.transform);
         GameObject.Find("ServerInfo").GetComponent<ServerSync>().HardResetPos();
 #else
      gameObject.name = "MobilePlayer";
@@ -54,7 +55,7 @@ public class PlayerControl : NetworkBehaviour {
 #if UNITY_STANDALONE
             Debug.Log("I am the computer reacting to an action! " + action);
             var player = GameObject.Find("PcPlayer");
-            player.transform.position += new Vector3(5, 0, 0);
+            player.transform.position += new Vector3(0.01f, 0, 0);
             RpcUpdatePosition(player.transform.position);
             //GameObject.Find("ServerInfo").GetComponent<ServerSync>().posPc = player.transform.position;
             //GameObject.Find("ServerInfo").GetComponent<ServerSync>().posMobile = player.transform.position;
