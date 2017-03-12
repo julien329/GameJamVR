@@ -67,8 +67,8 @@ public class PlayerControlVR : NetworkBehaviour {
 
         if(Input.GetMouseButtonUp(0)) {
             if (outlineAccepted.activeSelf) {
-                //gameObject.GetComponent<PlayerControl>().CmdMoveToDestination(outlineTransform.position);
-                gameObject.GetComponent<PlayerControl>().CmdMoveToDestination(new Vector3(5,5,5));
+                gameObject.GetComponent<PlayerControl>().CmdMoveToDestination(outlineTransform.position);
+                //gameObject.GetComponent<PlayerControl>().CmdMoveToDestination(new Vector3(5,5,5));
 
             }
 
@@ -135,6 +135,15 @@ public class PlayerControlVR : NetworkBehaviour {
     public IEnumerator MoveToOutline() {
 
         Vector3 lastPos = this.transform.position;
+
+        //Toggle animation on and off
+#if UNITY_STANDALONE
+        transform.rotation = Quaternion.LookRotation(Vector3.ProjectOnPlane(nextDestination, Vector3.up) - Vector3.ProjectOnPlane(lastPos, Vector3.up), Vector3.up);
+        var anim = gameObject.GetComponentInChildren<Animator>();
+        if(anim != null)
+            anim.SetFloat("MoveSpeed", 0.3f);
+#endif
+
         //Vector3 targetPos = new Vector3(outlineTransform.position.x, this.transform.position.y, outlineTransform.position.z);
         isMoving = true;
         direction = Vector3.Normalize(nextDestination - this.transform.position);
@@ -149,6 +158,12 @@ public class PlayerControlVR : NetworkBehaviour {
 
         this.transform.position = nextDestination;
         isMoving = false;
+
+#if UNITY_STANDALONE
+        var anima = gameObject.GetComponentInChildren<Animator>();
+        if(anima != null)
+            anima.SetFloat("MoveSpeed", 0.0f);
+#endif
 
         CheckTileEffect();
     }

@@ -39,17 +39,6 @@ public class SimpleCharacterControl : MonoBehaviour {
     }
 
 	void Update () {
-        if (transform.parent == null)
-            return;
-
-        if(lastPos != transform.parent.position)
-        {
-            m_animator.SetFloat("MoveSpeed", 0.6f);
-
-        }
-        //else
-        //    m_animator.SetFloat("MoveSpeed", 0.0f);
-        lastPos = transform.parent.position;
 
     }
 
