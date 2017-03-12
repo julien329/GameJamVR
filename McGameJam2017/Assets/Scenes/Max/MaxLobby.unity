@@ -305,7 +305,7 @@ MonoBehaviour:
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 0
   m_OfflineScene: MaxLobby
-  m_OnlineScene: MaxTransit
+  m_OnlineScene: MaxGameScene
   m_SpawnPrefabs:
   - {fileID: 1838147760662156, guid: 30b2d16ff5ac1ad4ebb104967ce4ff55, type: 2}
   - {fileID: 1256305416635972, guid: fce5f0de34cc51a49b6ed275ff407be6, type: 2}

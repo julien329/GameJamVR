@@ -16,15 +16,16 @@ public class PlayerControl : NetworkBehaviour {
 
 #if UNITY_STANDALONE
         gameObject.name = "PcPlayer";
-        GameObject.Find("PlayerMod").transform.SetParent(gameObject.transform);
-        GameObject.Find("PlayerMod").transform.localPosition = Vector3.zero;
-        GameObject.Find("ServerInfo").GetComponent<ServerSync>().HardResetPos();
+        GameObject.Find("PlayerMod").transform.parent = (gameObject.transform);
+        //GameObject.Find("PlayerMod").GetComponent<Rigidbody>().
+        GameObject.Find("PlayerMod").transform.position = Vector3.zero + new Vector3(0, .75f, 0); 
+        //GameObject.Find("ServerInfo").GetComponent<ServerSync>().HardResetPos();
         //Create empty game object to host our camera
         var newObject = GameObject.Instantiate(new GameObject());
         newObject.AddComponent<Camera>();
         newObject.transform.parent = gameObject.transform;
         gameObject.GetComponent<PlayerControlVR>().cameraVr = newObject.GetComponent<Camera>();
-        gameObject.GetComponent<PlayerControlVR>().cameraVr.transform.localPosition = new Vector3(0, 10, 30);
+        gameObject.GetComponent<PlayerControlVR>().cameraVr.transform.localPosition = new Vector3(0, 10, 0);
         gameObject.GetComponent<PlayerControlVR>().cameraVr.transform.localRotation = Quaternion.LookRotation(Vector3.down, Vector3.forward);
 #else
      gameObject.name = "MobilePlayer";
