@@ -8,7 +8,7 @@ public class ComputerMenuManager : MonoBehaviour {
 #if UNITY_STANDALONE
     public GameObject editorMenu;
     public void loadEditorMenu() {
-        SceneManager.LoadSceneAsync("SceneMaxMap");
+        SceneManager.LoadSceneAsync("EditorScene");
     }
 #endif
 
