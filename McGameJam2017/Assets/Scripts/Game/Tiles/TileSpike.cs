@@ -10,6 +10,7 @@ public class TileSpike : ITileEffect {
 
     private Animator anim;
     private GameOver gameOver;
+    private AudioSource audioSource;
     public float deathDelay = 1.0f;
 
 
@@ -20,8 +21,8 @@ public class TileSpike : ITileEffect {
     void Awake()
     {
         anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         gameOver = GameObject.Find("GameOver").GetComponent<GameOver>();
-
     }
 
 
@@ -33,5 +34,6 @@ public class TileSpike : ITileEffect {
     {
         anim.SetTrigger("SpikeOn");
         gameOver.ShowGameOver(deathDelay);
+        audioSource.Play();
     }
 }
