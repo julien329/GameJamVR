@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.VR;
 
-public class SelectionOutline : MonoBehaviour {
+public class PlayerControlVR : MonoBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     /// VARIABLES
