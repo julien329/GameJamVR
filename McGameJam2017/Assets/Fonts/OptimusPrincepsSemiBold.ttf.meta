@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 94b67e231c535c84db9e0546c18225ef
+timeCreated: 1489332553
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 50
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: OptimusPrincepsSemiBold
+  fontNames:
+  - OptimusPrincepsSemiBold
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
