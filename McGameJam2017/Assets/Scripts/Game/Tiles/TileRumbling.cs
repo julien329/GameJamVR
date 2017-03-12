@@ -14,6 +14,7 @@ public class TileRumbling: ITileEffect {
     private float destroyDelay = 2;
     private Animator anim;
     private Rigidbody playerRigidBody;
+    private AudioSource audioSource;
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -25,6 +26,7 @@ public class TileRumbling: ITileEffect {
         playerRigidBody = player.GetComponent<Rigidbody>();
 
         anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
 
@@ -34,6 +36,8 @@ public class TileRumbling: ITileEffect {
 
     public override void PlayEffect() {
         anim.SetBool("isPlayerOnTile", true);
+        audioSource.Play();
+
         Invoke("TileFall", fallDelay);
         playerRigidBody.useGravity = true;
         playerRigidBody.isKinematic = false;
