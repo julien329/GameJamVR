@@ -10,6 +10,8 @@ public class TileSpring : ITileEffect {
 
     public float launchAngleDeg = 60;
 
+    [SerializeField]
+    private float tileWidth = 2.0f;
     private Rigidbody playerRigidbody;
     private SelectionOutline selectionOutline;
     private Transform playerTransform;

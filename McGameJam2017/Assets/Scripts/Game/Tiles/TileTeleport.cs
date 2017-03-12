@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileTeleportUp : ITileEffect {
+public class TileTeleport : ITileEffect {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     /// VARIABLES
@@ -15,9 +15,12 @@ public class TileTeleportUp : ITileEffect {
 
     [SerializeField]
     private TeleportType teleportType;
+    [SerializeField]
+    private LayerMask cubeMask;
+    [SerializeField]
     private float teleportDelay;
     private Transform playerTransform;
-    private Transform linkedTeleporter;
+    private Vector3 linkedTeleporterPos;
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -29,42 +32,34 @@ public class TileTeleportUp : ITileEffect {
         playerTransform = player.transform;
     }
 
-    void Start() {
-        RaycastHit[] hits;
-        hits = Physics.RaycastAll(transform.position, transform.forward, 100.0F);
-
-        for (int i = 0; i < hits.Length; i++) {
-            RaycastHit hit = hits[i];
-            Renderer rend = hit.transform.GetComponent<Renderer>();
-
-            if (rend) {
-                // Change the material of all hit colliders
-                // to use a transparent shader.
-                rend.material.shader = Shader.Find("Transparent/Diffuse");
-                Color tempColor = rend.material.color;
-                tempColor.a = 0.3F;
-                rend.material.color = tempColor;
-            }
-        }
-    }
-
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     /// METHODS
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     public override void PlayEffect() {
+        FindLinkedTeleporter();
         StartCoroutine(TeleportAfterDelay());
     }
 
 
     private void FindLinkedTeleporter() {
+        RaycastHit[] hits;
+        hits = Physics.RaycastAll(transform.position, Vector3.up * (float)teleportType, cubeMask);
 
+        for (int i = 0; i < hits.Length; i++) {
+            RaycastHit hit = hits[i];;
+
+            TileTeleport otherTeleporter = hit.transform.gameObject.GetComponent<TileTeleport>();
+            if (otherTeleporter) {
+                linkedTeleporterPos = hit.transform.position;
+            }
+        }
     }
 
 
     private IEnumerator TeleportAfterDelay() {
         yield return new WaitForSeconds(teleportDelay);
-        playerTransform.position = playerTransform.position + (linkedTeleporter.position - this.transform.position);
+        playerTransform.position = playerTransform.position + (linkedTeleporterPos - this.transform.position);
     }
 }
