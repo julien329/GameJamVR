@@ -17,7 +17,15 @@ public class SimpleCharacterControl : MonoBehaviour {
     private readonly float m_backwardsWalkScale = 0.16f;
     private readonly float m_backwardRunScale = 0.66f;
 
+    private Vector3 lastPos = Vector3.zero;
+
     private Vector3 m_currentDirection = Vector3.zero;
+
+    void Start()
+    {
+        m_animator.SetBool("Grounded", true);
+        m_animator.SetFloat("MoveSpeed", 0.0f);
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -31,8 +39,13 @@ public class SimpleCharacterControl : MonoBehaviour {
     }
 
 	void Update () {
-        m_animator.SetBool("Grounded", true);
-        m_animator.SetFloat("MoveSpeed", 0.6f);
+
+        if(lastPos != transform.position)
+            m_animator.SetFloat("MoveSpeed", 0.6f);
+        else
+            m_animator.SetFloat("MoveSpeed", 0.0f);
+        lastPos = transform.position;
+
     }
 
     private void DirectUpdate()
