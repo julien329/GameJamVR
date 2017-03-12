@@ -3242,6 +3242,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 114947952315932186, guid: 8f04273301b9be34da741ead9a4d95a5,
+        type: 2}
+      propertyPath: virtualRoom
+      value: 
+      objectReference: {fileID: 1803626800202004, guid: e6e2081242a9ca7488c0c9e2e290dc24,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8f04273301b9be34da741ead9a4d95a5, type: 2}
   m_IsPrefabParent: 0

@@ -71,6 +71,8 @@ MonoBehaviour:
   - {fileID: 1844774028179596, guid: ef622e6023d660540bc2ea3bcd3fe29d, type: 2}
   realMapFloor: {fileID: 1013102549927368, guid: 0bdc60a80f0267143bc835699053b389,
     type: 2}
+  virtualRoom: {fileID: 1803626800202004, guid: e6e2081242a9ca7488c0c9e2e290dc24,
+    type: 2}
   nameParentGameObject: Map
   currentTileStart: {fileID: 0}
   currentTileEnd: {fileID: 0}

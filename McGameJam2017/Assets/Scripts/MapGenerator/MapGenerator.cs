@@ -14,6 +14,9 @@ public class MapGenerator : MonoBehaviour {
     GameObject realMapFloor;
 
     [SerializeField]
+    GameObject virtualRoom;
+
+    [SerializeField]
     static string nameMapDefault = "defaultMap";
 
     [SerializeField]
@@ -113,7 +116,11 @@ public class MapGenerator : MonoBehaviour {
     {
         GameObject parentMap = new GameObject(nameParentGameObject);
         parentMap.transform.position = new Vector3(0, 0, 0);
-        
+
+        //Instantiate la dalle du site de construction (16 par 32)
+        GameObject virtualRoomClone = Instantiate(virtualRoom, virtualRoom.transform.position, virtualRoom.transform.rotation);
+        virtualRoomClone.transform.parent = parentMap.transform;
+
         //Instantiate(tile[(int)(TileType.NORMAL)], new Vector3(0,0,0), new Quaternion(0, 0, 0, 0));
         // Parcourir les floorsVR pour generer les tiles
         int dim1 = Floor.Dim1;
