@@ -16,6 +16,7 @@ public class TileSpring : ITileEffect {
     private PlayerControlVR selectionOutline;
     private Transform playerTransform;
     private Vector3 targetPos;
+    private AudioSource audioSource;
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -27,7 +28,8 @@ public class TileSpring : ITileEffect {
         playerRigidbody = player.GetComponent<Rigidbody>();
         selectionOutline = player.GetComponent<PlayerControlVR>();
         playerTransform = player.transform;
-	}
+        audioSource = GetComponent<AudioSource>();
+    }
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -35,6 +37,8 @@ public class TileSpring : ITileEffect {
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     public override void PlayEffect() {
+        audioSource.Play();
+
         targetPos = playerTransform.position + selectionOutline.Direction * tileWidth * 2.0f;
         Vector3 launchImpulse = LaunchVelocity(targetPos, launchAngleDeg);
         playerRigidbody.useGravity = true;
