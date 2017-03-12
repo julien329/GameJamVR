@@ -113,7 +113,7 @@ public class PlayerControlVR : NetworkBehaviour {
             outlineAccepted.SetActive(false);
             outlineRefused.SetActive(false);
             return false;
-        }
+        }   
     }
     
 #endif

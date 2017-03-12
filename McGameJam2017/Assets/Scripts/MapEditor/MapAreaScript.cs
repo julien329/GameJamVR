@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MapAreaScript : MonoBehaviour {
@@ -184,4 +185,10 @@ public class MapAreaScript : MonoBehaviour {
         SelectFloor(currentFloor);
     }
 
+    public void Exit()
+    {
+        SceneManager.LoadSceneAsync("MenuScene");
+    }
+
 }
+
