@@ -234,25 +234,6 @@ Prefab:
       propertyPath: outlineRefused
       value: 
       objectReference: {fileID: 1574153163}
-    - target: {fileID: 136348387003207960, guid: eb61ba52fe1b3c146857472d222731b7,
-        type: 2}
-      propertyPath: m_Radius
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 136348387003207960, guid: eb61ba52fe1b3c146857472d222731b7,
-        type: 2}
-      propertyPath: m_Height
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 136348387003207960, guid: eb61ba52fe1b3c146857472d222731b7,
-        type: 2}
-      propertyPath: m_Center.y
-      value: -0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 1616375509063500, guid: eb61ba52fe1b3c146857472d222731b7, type: 2}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: eb61ba52fe1b3c146857472d222731b7, type: 2}
   m_IsPrefabParent: 0
