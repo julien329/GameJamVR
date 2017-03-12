@@ -32,7 +32,7 @@ public class PlayerControl : NetworkBehaviour {
         var cam = Resources.Load("Prefabs/MainCamera") as GameObject;
         Instantiate(cam, this.transform);
         var vr = Resources.Load("Prefabs/GvrViewerMain") as GameObject;
-        gameObject.GetComponent<PlayerControlVR>().cameraVr = Instantiate(cam, this.transform);
+        gameObject.GetComponent<PlayerControlVR>().cameraVr = Instantiate(cam, this.transform).GetComponent<Camera>();
 #endif
 
     }
