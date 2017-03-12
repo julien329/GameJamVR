@@ -29,7 +29,6 @@ public class PlayerControl : NetworkBehaviour {
         gameObject.AddComponent<Camera>();
 #else
      gameObject.name = "MobilePlayer";
-        GameObject.Find("ServerInfo").GetComponent<ServerSync>().HardResetPos();
 #endif
 
     }
