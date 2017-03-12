@@ -9,7 +9,6 @@ public class TileSpike : ITileEffect {
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     private Animator anim;
-    private Rigidbody playerRigidBody;
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -18,9 +17,6 @@ public class TileSpike : ITileEffect {
 
     void Awake()
     {
-        GameObject player = GameObject.Find("PlayerVR");
-        playerRigidBody = player.GetComponent<Rigidbody>();
-
         anim = GetComponent<Animator>();
     }
 
