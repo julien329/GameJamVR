@@ -40,15 +40,6 @@ public class PlayerControlVR : MonoBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     void Awake() {
-#if UNITY_ANDROID
-        var cam = Resources.Load("Prefabs/MainCamera") as GameObject;
-        Instantiate(cam, this.transform);
-        var vr = Resources.Load("Prefabs/GvrViewerMain") as GameObject;
-        Instantiate(cam, this.transform);
-#else
-        cameraVr = gameObject.AddComponent<Camera>();
-        //cameraVr = Instantiate(cameraVr, this.transform) as Camera;
-#endif
         outlineAccepted = outlineTransform.GetChild(0).gameObject;
         outlineAccepted.SetActive(false);
         outlineRefused = outlineTransform.GetChild(1).gameObject;
