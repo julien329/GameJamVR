@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.VR;
 
-public class PlayerControlVR : MonoBehaviour {
+public class PlayerControlVR : NetworkBehaviour {
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
     /// VARIABLES
@@ -39,14 +40,14 @@ public class PlayerControlVR : MonoBehaviour {
     /// UNITY
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    void Awake() {
+    void Start() {
 #if UNITY_ANDROID
         var cam = Resources.Load("Prefabs/MainCamera") as GameObject;
         Instantiate(cam, this.transform);
         var vr = Resources.Load("Prefabs/GvrViewerMain") as GameObject;
         Instantiate(cam, this.transform);
 #else
-        cameraVr = gameObject.AddComponent<Camera>();
+        
         //cameraVr = Instantiate(cameraVr, this.transform) as Camera;
 #endif
         outlineAccepted = outlineTransform.GetChild(0).gameObject;

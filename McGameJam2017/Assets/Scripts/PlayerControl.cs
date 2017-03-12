@@ -26,6 +26,7 @@ public class PlayerControl : NetworkBehaviour {
     gameObject.name = "PcPlayer";
         GameObject.Find("PlayerMod").transform.SetParent(gameObject.transform);
         GameObject.Find("ServerInfo").GetComponent<ServerSync>().HardResetPos();
+        gameObject.AddComponent<Camera>();
 #else
      gameObject.name = "MobilePlayer";
 #endif
