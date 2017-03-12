@@ -60,17 +60,19 @@ public class PlayerControlVR : NetworkBehaviour {
 
 
     void Update () {
+        bool moveLegal = false;
 #if UNITY_ANDROID
         if (Input.GetMouseButton(0)) {
-            UpdateOutlineBox();
+            moveLegal = UpdateOutlineBox();
         }
 
         if(Input.GetMouseButtonUp(0)) {
-            if (outlineAccepted.activeSelf) {
-                gameObject.GetComponent<PlayerControl>().CmdMoveToDestination(outlineTransform.position);
+            if (UpdateOutlineBox()) {
+                gameObject.GetComponent<PlayerControl>().CmdMoveToDestination(outlineTransform.position + new Vector3(0, cameraHeight, 0));
                 //gameObject.GetComponent<PlayerControl>().CmdMoveToDestination(new Vector3(5,5,5));
 
             }
+            //gameObject.GetComponent<PlayerControl>().CmdMoveToDestination(new Vector3(5, 5, 5));
 
             outlineAccepted.SetActive(false);
             outlineRefused.SetActive(false);
@@ -83,7 +85,7 @@ public class PlayerControlVR : NetworkBehaviour {
     /// METHODS
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private void UpdateOutlineBox() {
+    private bool UpdateOutlineBox() {
 #if UNITY_ANDROID
         Transform objectHit = RaycastFloor();
         if (objectHit && !isMoving) {
@@ -94,36 +96,36 @@ public class PlayerControlVR : NetworkBehaviour {
             if ((deltaX == unitWidth && deltaZ == 0.0f) || (deltaX == 0.0f && deltaZ == unitWidth)) {
                 outlineAccepted.SetActive(true);
                 outlineRefused.SetActive(false);
+                return true;
             }
             else if (deltaX == 0.0f && deltaZ == 0.0f) {
                 outlineAccepted.SetActive(false);
                 outlineRefused.SetActive(false);
+                return false;
             }
             else {
                 outlineAccepted.SetActive(false);
                 outlineRefused.SetActive(true);
+                return false;
             }
         }
         else {
             outlineAccepted.SetActive(false);
             outlineRefused.SetActive(false);
+            return false;
         }
 #endif
     }
 
 
     private Transform RaycastFloor() {
-#if UNITY_ANDROID
-        Quaternion headRotation = InputTracking.GetLocalRotation(VRNode.Head);
-        Vector3 rayRotation = headRotation * cameraVr.transform.forward;
-#else
+
         Quaternion headRotation = InputTracking.GetLocalRotation(VRNode.Head);
         Vector3 rayRotation = headRotation * Vector3.forward;
-#endif
 
-        Ray rayDirection = new Ray(transform.position, rayRotation);
+        Ray rayDirection = new Ray(gameObject.transform.position, rayRotation);
         if (Physics.Raycast(rayDirection, out hit, cubeMask)) {
-            if ((this.transform.position.y - hit.transform.position.y) == cameraHeight) {
+            if (Mathf.Abs(this.transform.position.y - hit.transform.position.y) <= 2.5f) {
                 return hit.transform;
             }
         }

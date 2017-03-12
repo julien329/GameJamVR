@@ -29,9 +29,10 @@ public class PlayerControl : NetworkBehaviour {
         gameObject.GetComponent<PlayerControlVR>().cameraVr.transform.localRotation = Quaternion.LookRotation(Vector3.down, Vector3.forward);
 #else
      gameObject.name = "MobilePlayer";
-        gameObject.transform.localPosition = new Vector3(0, 2, 0);
+        gameObject.transform.position = new Vector3(0, 2, 0);
         GameObject.Find("VrCamera").transform.SetParent(gameObject.transform);
         gameObject.GetComponent<PlayerControlVR>().cameraVr = transform.GetChild(0).gameObject.GetComponent<Camera>();
+        gameObject.GetComponent<PlayerControlVR>().cameraVr.transform.localPosition = Vector3.zero;
         //var cam = Resources.Load("Prefabs/MainCamera") as GameObject;
         ////Instantiate(cam, this.transform);
         //var vr = Resources.Load("Prefabs/GvrViewerMain") as GameObject;
@@ -90,13 +91,14 @@ public class PlayerControl : NetworkBehaviour {
     void RpcMoveClientToDestination(Vector3 destination)
     {
         Debug.Log("Rpc time");
+
         gameObject.GetComponent<PlayerControlVR>().nextDestination = destination;
         gameObject.GetComponent<PlayerControlVR>().StartCoroutine(gameObject.GetComponent<PlayerControlVR>().MoveToOutline());
-#if UNITY_STANDALONE
-        var player = GameObject.Find("PcPlayer").GetComponent<PlayerControlVR>();
-        player.nextDestination = destination;
-        player.StartCoroutine(player.MoveToOutline());
-#endif
+//#if UNITY_STANDALONE
+//        var player = GameObject.Find("PcPlayer").GetComponent<PlayerControlVR>();
+//        player.nextDestination = destination;
+//        player.StartCoroutine(player.MoveToOutline());
+//#endif
     }
 
     void HardUpdate()
