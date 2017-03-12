@@ -27,6 +27,8 @@ public class SelectionOutline : MonoBehaviour {
     private float cameraHeight;
     [SerializeField]
     private float moveSpeed;
+    [SerializeField]
+    private float targetableHeightMargin = 0.2f;
 
     private RaycastHit hit;
     private bool isMoving = false;
@@ -86,8 +88,11 @@ public class SelectionOutline : MonoBehaviour {
 
     private Transform RaycastFloor() {
         Quaternion headRotation = InputTracking.GetLocalRotation(VRNode.Head);
+#if UNITY_STANDALONE
         Vector3 rayRotation = headRotation * cameraVr.transform.forward;
-        //Vector3 rayRotation = headRotation * Vector3.forward;
+#else
+        Vector3 rayRotation = headRotation * Vector3.forward;
+#endif
 
         Ray rayDirection = new Ray(transform.position, rayRotation);
         if (Physics.Raycast(rayDirection, out hit, cubeMask)) {
@@ -124,7 +129,7 @@ public class SelectionOutline : MonoBehaviour {
     private void CheckTileEffect() {
         Ray rayDirection = new Ray(transform.position, Vector3.down);
         if (Physics.Raycast(rayDirection, out hit, cubeMask)) {
-            if ((this.transform.position.y - hit.transform.position.y) == cameraHeight) {
+            if (Mathf.Abs(this.transform.position.y - hit.transform.position.y) <= cameraHeight + targetableHeightMargin) {
                 ITileEffect tileEffect = hit.transform.gameObject.GetComponent<ITileEffect>();
                 if(tileEffect) {
                     tileEffect.PlayEffect();

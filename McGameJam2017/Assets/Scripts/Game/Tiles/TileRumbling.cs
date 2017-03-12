@@ -2,26 +2,46 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RumblingTileScript : MonoBehaviour {
+public class TileRumbling: ITileEffect {
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    /// VARIABLES
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    [SerializeField]
+    private float fallDelay = 2;
+    [SerializeField]
+    private float destroyDelay = 2;
     private Animator anim;
+    private Rigidbody playerRigidBody;
 
-    void Awake()
-    {
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    /// UNITY
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    void Awake() {
+        GameObject player = GameObject.Find("PlayerVR");
+        playerRigidBody = player.GetComponent<Rigidbody>();
+
         anim = GetComponent<Animator>();
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.tag == "PlayerVR")
-        {
-            anim.SetBool("isPlayerOnTile", true);
-            Invoke("TileFall", 2);
-        }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    /// METHODS
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    public override void PlayEffect() {
+        anim.SetBool("isPlayerOnTile", true);
+        Invoke("TileFall", fallDelay);
+        playerRigidBody.useGravity = true;
+        playerRigidBody.isKinematic = false;
     }
 
-    void TiteFall()
-    {
+
+    private void TileFall() {
         anim.SetTrigger("TileFall");
+        Destroy(this.transform.parent.gameObject, destroyDelay);
     }
 }
