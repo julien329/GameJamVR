@@ -59,7 +59,6 @@ public class PlayerControl : NetworkBehaviour {
 #if UNITY_STANDALONE
             Debug.Log("I am the computer reacting to an action! " + action);
             var player = GameObject.Find("PcPlayer");
-            player.transform.position += new Vector3(0.01f, 0, 0);
             RpcUpdatePosition(player.transform.position);
             //GameObject.Find("ServerInfo").GetComponent<ServerSync>().posPc = player.transform.position;
             //GameObject.Find("ServerInfo").GetComponent<ServerSync>().posMobile = player.transform.position;
@@ -85,6 +84,20 @@ public class PlayerControl : NetworkBehaviour {
         if (obj != null)
             obj.transform.position = position;
 #endif
+    }
+
+    [Command]
+    public void CmdMoveToDestination(Vector3 destination)
+    {
+        gameObject.GetComponent<PlayerControlVR>().nextDestination = destination;
+        RpcMoveClientToDestination();
+    }
+
+    [ClientRpc]
+    void RpcMoveClientToDestination()
+    {
+        Debug.Log("Rpc time");
+        gameObject.GetComponent<PlayerControlVR>().StartCoroutine(gameObject.GetComponent<PlayerControlVR>().MoveToOutline());
     }
 
     void OnPlayerConnected(NetworkPlayer player)

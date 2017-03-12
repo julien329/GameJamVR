@@ -31,6 +31,8 @@ public class PlayerControlVR : NetworkBehaviour {
     [SerializeField]
     private float targetableHeightMargin = 0.2f;
 
+    public Vector3 nextDestination;
+
     private RaycastHit hit;
     private bool isMoving = false;
     private Vector3 direction;
@@ -65,7 +67,9 @@ public class PlayerControlVR : NetworkBehaviour {
 
         if(Input.GetMouseButtonUp(0)) {
             if (outlineAccepted.activeSelf) {
-                StartCoroutine(MoveToOutline());
+                //gameObject.GetComponent<PlayerControl>().CmdMoveToDestination(outlineTransform.position);
+                gameObject.GetComponent<PlayerControl>().CmdMoveToDestination(new Vector3(5,5,5));
+
             }
 
             outlineAccepted.SetActive(false);
@@ -128,14 +132,14 @@ public class PlayerControlVR : NetworkBehaviour {
     }
 
 
-    private IEnumerator MoveToOutline() {
+    public IEnumerator MoveToOutline() {
 
         Vector3 lastPos = this.transform.position;
-        Vector3 targetPos = new Vector3(outlineTransform.position.x, this.transform.position.y, outlineTransform.position.z);
+        //Vector3 targetPos = new Vector3(outlineTransform.position.x, this.transform.position.y, outlineTransform.position.z);
         isMoving = true;
-        direction = Vector3.Normalize(targetPos - this.transform.position);
+        direction = Vector3.Normalize(nextDestination - this.transform.position);
 
-        float distance = Vector3.Distance(this.transform.position, targetPos);
+        float distance = Vector3.Distance(this.transform.position, nextDestination);
         while(distance > 0) {
             this.transform.Translate(direction * Time.deltaTime * moveSpeed);
             distance -= Vector3.Distance(lastPos, this.transform.position);
@@ -143,7 +147,7 @@ public class PlayerControlVR : NetworkBehaviour {
             yield return null;
         }
 
-        this.transform.position = targetPos;
+        this.transform.position = nextDestination;
         isMoving = false;
 
         CheckTileEffect();
