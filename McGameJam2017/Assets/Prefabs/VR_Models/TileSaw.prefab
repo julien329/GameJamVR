@@ -37,6 +37,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4580654250032452}
   - component: {fileID: 65987696865015328}
+  - component: {fileID: 114050438843278434}
   m_Layer: 0
   m_Name: Blade
   m_TagString: Untagged
@@ -56,7 +57,7 @@ GameObject:
   - component: {fileID: 65143238595681032}
   - component: {fileID: 23528677372731110}
   - component: {fileID: 95025922578711782}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TileSaw
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,8 +97,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1954846463024544}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 1, z: 2}
   m_Children:
   - {fileID: 4580654250032452}
@@ -199,7 +200,7 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1376849517176772}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.04, y: 0.55, z: 0.45}
@@ -211,7 +212,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1954846463024544}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 00a4f5d76d170f8499065b6ec6ab93d1, type: 2}
   m_CullingMode: 0
@@ -221,3 +222,14 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114050438843278434
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1376849517176772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9e018ecd97ff884aae11d87cd53f85c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
