@@ -28,7 +28,6 @@ public class PlayerControl : NetworkBehaviour {
         GameObject.Find("ServerInfo").GetComponent<ServerSync>().HardResetPos();
 #else
      gameObject.name = "MobilePlayer";
-        GameObject.Find("ServerInfo").GetComponent<ServerSync>().HardResetPos();
 #endif
 
     }
