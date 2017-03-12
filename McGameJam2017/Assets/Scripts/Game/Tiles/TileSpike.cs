@@ -9,6 +9,8 @@ public class TileSpike : ITileEffect {
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     private Animator anim;
+    private GameOver gameOver;
+    public float deathDelay = 1.0f;
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -18,6 +20,8 @@ public class TileSpike : ITileEffect {
     void Awake()
     {
         anim = GetComponent<Animator>();
+        gameOver = GameObject.Find("GameOver").GetComponent<GameOver>();
+
     }
 
 
@@ -28,5 +32,6 @@ public class TileSpike : ITileEffect {
     public override void PlayEffect()
     {
         anim.SetTrigger("SpikeOn");
+        gameOver.ShowGameOver(deathDelay);
     }
 }
