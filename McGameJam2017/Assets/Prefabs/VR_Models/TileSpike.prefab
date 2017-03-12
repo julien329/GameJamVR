@@ -72,6 +72,7 @@ GameObject:
   - component: {fileID: 65229734681470176}
   - component: {fileID: 23398169733515216}
   - component: {fileID: 95009100576462980}
+  - component: {fileID: 114963926480309340}
   m_Layer: 0
   m_Name: TileSpike
   m_TagString: Untagged
@@ -750,7 +751,7 @@ Animator:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1095791465972672}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 112e25994410ac848b7bd9b93b240a38, type: 2}
   m_CullingMode: 0
@@ -760,3 +761,14 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114963926480309340
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1095791465972672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6700f7cd395063f438d1355aa513a994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
