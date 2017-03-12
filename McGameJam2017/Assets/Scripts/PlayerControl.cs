@@ -29,10 +29,14 @@ public class PlayerControl : NetworkBehaviour {
         gameObject.GetComponent<PlayerControlVR>().cameraVr.transform.localRotation = Quaternion.LookRotation(Vector3.down, Vector3.forward);
 #else
      gameObject.name = "MobilePlayer";
-        var cam = Resources.Load("Prefabs/MainCamera") as GameObject;
-        Instantiate(cam, this.transform);
-        var vr = Resources.Load("Prefabs/GvrViewerMain") as GameObject;
-        gameObject.GetComponent<PlayerControlVR>().cameraVr = Instantiate(cam, this.transform).GetComponent<Camera>();
+        gameObject.transform.localPosition = new Vector3(0, 2, 0);
+        GameObject.Find("VrCamera").transform.SetParent(gameObject.transform);
+        gameObject.GetComponent<PlayerControlVR>().cameraVr = transform.GetChild(0).gameObject.GetComponent<Camera>();
+        //var cam = Resources.Load("Prefabs/MainCamera") as GameObject;
+        ////Instantiate(cam, this.transform);
+        //var vr = Resources.Load("Prefabs/GvrViewerMain") as GameObject;
+        //gameObject.GetComponent<PlayerControlVR>().cameraVr = Instantiate(cam, this.transform).GetComponent<Camera>();
+        //gameObject.GetComponent<PlayerControlVR>().cameraVr.gameObject.transform.position = new Vector3(0, 2, 0);
 #endif
 
     }

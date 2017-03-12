@@ -113,7 +113,7 @@ public class PlayerControlVR : NetworkBehaviour {
 
 
     private Transform RaycastFloor() {
-#if UNITY_STANDALONE
+#if UNITY_ANDROID
         Quaternion headRotation = InputTracking.GetLocalRotation(VRNode.Head);
         Vector3 rayRotation = headRotation * cameraVr.transform.forward;
 #else
