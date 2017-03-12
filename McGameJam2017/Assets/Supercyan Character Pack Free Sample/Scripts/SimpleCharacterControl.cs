@@ -44,7 +44,6 @@ public class SimpleCharacterControl : MonoBehaviour {
 
     private void DirectUpdate()
     {
-        return;
         float v = Input.GetAxis("Vertical");
         float h = Input.GetAxis("Horizontal");
 
