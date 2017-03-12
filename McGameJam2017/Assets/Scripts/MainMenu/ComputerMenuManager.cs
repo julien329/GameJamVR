@@ -16,7 +16,7 @@ public class ComputerMenuManager : MonoBehaviour {
     public GameObject creditsMenu;
     public void startGame()
     {
-        //SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("GameScene");
     }
     public void creditMenu()
     {
