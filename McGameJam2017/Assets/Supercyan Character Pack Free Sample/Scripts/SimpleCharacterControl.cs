@@ -31,8 +31,7 @@ public class SimpleCharacterControl : MonoBehaviour {
     }
 
 	void Update () {
-        
-
+        m_animator.SetBool("Grounded", true);
         m_animator.SetFloat("MoveSpeed", 0.6f);
     }
 
