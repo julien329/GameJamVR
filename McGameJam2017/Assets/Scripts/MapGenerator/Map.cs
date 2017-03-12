@@ -9,6 +9,12 @@ public class Map {
     [SerializeField]
     bool debug = false;
 
+    [SerializeField]
+    int nbrLevelVR = 3;
+
+    [SerializeField]
+    int nbrLevelR = 1;
+
     List<Floor> floorVR;/* = new Floor[3] { new Floor(), new Floor(), new Floor() };*/ // Taille varie voir createMapWithCharArray()
 
     Floor floorR = new Floor();
@@ -58,7 +64,7 @@ public class Map {
             if (readFile(filePath, out levelDesign))
             {
                 // Remplir les floors!
-                char[] splitChar = { ' ' };
+                //char[] splitChar = { ' ' };
 
                 string[] allTiles = levelDesign.Split(new string[] { "\n", "\r\n", "," }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -79,7 +85,7 @@ public class Map {
                     }
                 }
 
-                createMapWithCharArray(allTilesChar);
+                reussi = createMapWithCharArray(allTilesChar);
 
                 return reussi;
             }
@@ -198,7 +204,7 @@ public class Map {
 
             if (debug)
             {
-                Debug.Log("The directory was created successfully at " + Directory.GetCreationTime(path));
+                Debug.Log("The directory " + di.FullName + " was created successfully at " + Directory.GetCreationTime(path));
             }
 
         }
@@ -242,32 +248,55 @@ public class Map {
         return reussi;
     }
 
-    void createMapWithCharArray(char[] levelVR/*, char[] levelR*/)
+    bool createMapWithCharArray(char[] allFloors/*, char[] levelR*/)
     {
+        bool reussi = true;
+
         int dim1 = Floor.Dim1;
         int dim2 = Floor.Dim2;
-        int nbrLevel = levelVR.Length / (dim1 * dim2);
+
+        if (allFloors.Length != (dim1 * dim2 * (nbrLevelVR + nbrLevelR)))
+        {
+            Debug.Log("ERREUR, le fichier de la map doit contenir tous les etages.");
+            return false;
+        }
+
+        //int nbrLevel = allFloors.Length / (dim1 * dim2);
 
         // Reinitialisation de la liste.
         floorVR = new List<Floor>();
 
         //floorVR = new Floor[nbrLevel] { new Floor(), new Floor(), new Floor() };
-        for (int i = 0; i < nbrLevel; i++)
+        for (int i = 0; i < nbrLevelVR; i++)
         {
             floorVR.Add(new Floor());
         }
 
-        for (int i = 0; i < nbrLevel; i++)
+        // Remplir les floors VR
+        for (int i = 0; i < nbrLevelVR; i++)
         {
             for (int j = 0; j < dim1; j++)
             {
                 for (int k = 0; k < dim2; k++)
                 {
-                    floorVR[i].Tiles[j][k] = levelVR[i * (dim1 * dim2) + j * dim2 + k];
+                    floorVR[i].Tiles[j][k] = allFloors[i * (dim1 * dim2) + j * dim2 + k];
                 }
             }
         }
-        Debug.Log("test");
+
+        // Reinitialiser floorR
+        floorR = new Floor();
+
+        // Remplir le floor R
+        for (int j = 0; j < dim1; j++)
+        {
+            for (int k = 0; k < dim2; k++)
+            {
+                floorR.Tiles[j][k] = allFloors[nbrLevelVR * (dim1 * dim2) + j * dim2 + k];
+            }
+        }
+
+        return reussi;
 
     }
 

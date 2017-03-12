@@ -5,7 +5,13 @@ using UnityEngine;
 public class MapGenerator : MonoBehaviour {
 
     [SerializeField]
-    GameObject[]  tile = new GameObject[(int)TileType.TOTAL];
+    GameObject[]  tileVR = new GameObject[(int)TileType.TOTAL];
+
+    [SerializeField]
+    GameObject[] tileR = new GameObject[(int)TileReal.TOTAL];
+
+    [SerializeField]
+    GameObject realMapFloor;
 
     public void generateMap(Map map)
     {
@@ -21,22 +27,45 @@ public class MapGenerator : MonoBehaviour {
     void Start()
     {
         //test
-        //map = new Map();
-        //map.readMapFile("testRead");
-        //map.writeMapFile("testWrite");
+        Map map = new Map();
+        map.readMapFile("testRead");
+        map.writeMapFile("testWrite");
 
         // Charger la map par defaut
         // Pour l'instant la seule map c<est-a-dire test.
-        Map map = new Map();
-        //map.readMapFile("test");
-        map.readMapFile("mapCustom");
-        generateMap(map);
+        /*Map map = new Map();
+        map.readMapFile("test");
+        //map.readMapFile("mapCustom");
+        generateMap(map);*/
 
     }
 
     void generateMapR(Map map)
     {
         //TODO
+        GameObject parentMap = new GameObject("Map");
+        parentMap.transform.position = new Vector3(0, 0, 0);
+
+        //Instantiate la dalle du site de construction (16 par 32)
+        GameObject realMapFloorClone = Instantiate(realMapFloor, realMapFloor.transform.position, new Quaternion(0, 0, 0, 0));
+        realMapFloorClone.transform.parent = parentMap.transform;
+
+        int dim1 = Floor.Dim1;
+        int dim2 = Floor.Dim2;
+
+        for (int j = 0; j < dim1; j++)
+        {
+            for (int k = 0; k < dim2; k++)
+            {
+                int tileType = map.FloorR.Tiles[j][k];
+                // 0 = NORMAL, pour laquelle on ne fait rien.
+                if (tileType != 0)
+                {
+                    GameObject clone = Instantiate(tileR[tileType], new Vector3(j * 2, 0, k * 2), new Quaternion(0, 0, 0, 0));
+                    clone.transform.parent = parentMap.transform;
+                }
+            }
+        }
     }
 
     void generateMapVR(Map map)
@@ -57,10 +86,11 @@ public class MapGenerator : MonoBehaviour {
                 for (int k = 0; k < dim2; k++)
                 {
                     //levelDesign = levelDesign + (int)floorVR[i].Tiles[j][k] + ",";
-                    int index = map.FloorVR[i].Tiles[j][k];
-                    if (index != 0)
+                    int tileType = map.FloorVR[i].Tiles[j][k];
+                    // 0 = HOLE, pour lequel on ne fait rien.
+                    if (tileType != 0)
                     {
-                        GameObject clone = Instantiate(tile[index], new Vector3(j*2, i*4, k*2), new Quaternion(0, 0, 0, 0));
+                        GameObject clone = Instantiate(tileVR[tileType], new Vector3(j*2, i*4, k*2), new Quaternion(0, 0, 0, 0));
                         clone.transform.parent = parentMap.transform;
                     }
                 }
