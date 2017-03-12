@@ -6,7 +6,6 @@
     BOOST,
     TELEPORT_UP,
     TELEPORT_DOWN,
-    NARROW,
     SPIKE,
     SAW,
     END,

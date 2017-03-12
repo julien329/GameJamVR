@@ -13,23 +13,29 @@ public class MapGenerator : MonoBehaviour {
     [SerializeField]
     GameObject realMapFloor;
 
-    public void generateMap(Map map)
-    {
-#if UNITY_ANDROID
-        generateMapVR(map);
-#endif
+    [SerializeField]
+    static string nameMapDefault = "defaultMap";
 
-#if UNITY_STANDALONE
-        generateMapR(map);
-#endif
-    }
+    [SerializeField]
+    static string nameMapCustom = "customMap";
 
-    void Start()
+    [SerializeField]
+    string nameParentGameObject = "Map";
+
+    GameObject parentMap = null;
+
+    [SerializeField]
+    GameObject currentTileStart = null;
+
+    [SerializeField]
+    GameObject currentTileEnd = null;
+
+    void Start()//Pour tester
     {
         //test
-        Map map = new Map();
+        /*Map map = new Map();
         map.readMapFile("testRead");
-        map.writeMapFile("testWrite");
+        map.writeMapFile("testWrite");*/
 
         // Charger la map par defaut
         // Pour l'instant la seule map c<est-a-dire test.
@@ -38,12 +44,47 @@ public class MapGenerator : MonoBehaviour {
         //map.readMapFile("mapCustom");
         generateMap(map);*/
 
+        //generateMap(nameMapCustom);
+
+    }
+
+    public void generateDefaultMap()
+    {
+        generateMap(nameMapDefault);
+    }
+
+    public void generateCustomMap()
+    {
+        generateMap(nameMapDefault);
+    }
+
+    public void generateMap(string mapName)
+    {
+        // S'il y a une map dans la scene la delete avant de charger la nouvelle map.
+        if (parentMap)
+        {
+            var children = new List<GameObject>();
+            foreach (Transform child in transform) children.Add(child.gameObject);
+            children.ForEach(child => Destroy(child));
+        }
+
+        Map map = new Map();
+        if (map.readMapFile(mapName))
+        {
+#if UNITY_ANDROID
+        generateMapVR(map);
+#endif
+
+#if UNITY_STANDALONE
+            generateMapR(map);
+#endif
+        }
     }
 
     void generateMapR(Map map)
     {
         //TODO
-        GameObject parentMap = new GameObject("Map");
+        parentMap = new GameObject(nameParentGameObject);
         parentMap.transform.position = new Vector3(0, 0, 0);
 
         //Instantiate la dalle du site de construction (16 par 32)
@@ -70,7 +111,7 @@ public class MapGenerator : MonoBehaviour {
 
     void generateMapVR(Map map)
     {
-        GameObject parentMap = new GameObject("Map");
+        GameObject parentMap = new GameObject(nameParentGameObject);
         parentMap.transform.position = new Vector3(0, 0, 0);
         
         //Instantiate(tile[(int)(TileType.NORMAL)], new Vector3(0,0,0), new Quaternion(0, 0, 0, 0));
@@ -90,14 +131,36 @@ public class MapGenerator : MonoBehaviour {
                     // 0 = HOLE, pour lequel on ne fait rien.
                     if (tileType != 0)
                     {
-                        GameObject clone = Instantiate(tileVR[tileType], new Vector3(j*2, i*4, k*2), new Quaternion(0, 0, 0, 0));
+                        GameObject clone = Instantiate(tileVR[tileType], new Vector3(j * 2, i * 4, k * 2), new Quaternion(0, 0, 0, 0));
                         clone.transform.parent = parentMap.transform;
+                        if (tileType == (int)TileType.START)
+                        {
+                            currentTileStart = clone;
+                        }
+                        else if (tileType == (int)TileType.END)
+                        {
+                            currentTileEnd = clone;
+                        }
                     }
                 }
             }
         }
     }
 
-    
+    // Accesseurs et modificateurs
+    public static string NameMapCustom
+    {
+        get
+        {
+            return nameMapCustom;
+        }
+    }
 
+    public static string NameMapDefault
+    {
+        get
+        {
+            return nameMapDefault;
+        }
+    }
 }

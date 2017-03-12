@@ -156,4 +156,32 @@ public class MapAreaScript : MonoBehaviour {
         SelectFloor(currentFloor);
     }
 
+    // New
+    public void New()
+    {
+        // Reinit tous les etages
+        floor1 = new int[mapHeight, mapWidth];
+        floor2 = new int[mapHeight, mapWidth];
+        floor3 = new int[mapHeight, mapWidth];
+        floorReal = new int[mapHeight, mapWidth];
+        for (int i = 0; i < mapHeight; ++i)
+        {
+            for (int j = 0; j < mapWidth; ++j)
+            {
+                //Instantiate the tiles
+                floor1[i, j] = 0;
+                floor2[i, j] = 0;
+                floor3[i, j] = 0;
+                floorReal[i, j] = 0;
+            }
+        }
+
+        // Call a function of Map that uses the floors to create a save (text file).
+        Map tempMap = new Map();
+        tempMap.saveMapFromEditor(floor1, floor2, floor3, floorReal);
+
+        // Update the visual (tiles color)
+        SelectFloor(currentFloor);
+    }
+
 }

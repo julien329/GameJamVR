@@ -16,11 +16,11 @@ public class Map {
     int nbrLevelR = 1;
 
     [SerializeField]
-    string customFileName = "mapCustom";
+    string customFileName = MapGenerator.NameMapCustom;
 
-    List<Floor> floorVR;
+    List<Floor> floorVR = new List<Floor>();
 
-    Floor floorR;
+    Floor floorR = new Floor();
 
     public Map()
     {
@@ -297,7 +297,7 @@ public class Map {
         return reussi;
     }
 
-    bool createMapWithCharArray(char[] allFloors/*, char[] levelR*/)
+    bool createMapWithCharArray(char[] allFloors)
     {
         bool reussi = true;
 
