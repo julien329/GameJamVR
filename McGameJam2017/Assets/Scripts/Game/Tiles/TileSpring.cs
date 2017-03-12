@@ -13,7 +13,7 @@ public class TileSpring : ITileEffect {
     [SerializeField]
     private float tileWidth = 2.0f;
     private Rigidbody playerRigidbody;
-    private PlayerControlVR selectionOutline;
+    private PlayerControlVR playerControlVR;
     private Transform playerTransform;
     private Vector3 targetPos;
     private AudioSource audioSource;
@@ -26,7 +26,7 @@ public class TileSpring : ITileEffect {
     void Awake () {
         GameObject player = GameObject.Find("PlayerVR");
         playerRigidbody = player.GetComponent<Rigidbody>();
-        selectionOutline = player.GetComponent<PlayerControlVR>();
+        playerControlVR = player.GetComponent<PlayerControlVR>();
         playerTransform = player.transform;
         audioSource = GetComponent<AudioSource>();
     }
@@ -39,7 +39,7 @@ public class TileSpring : ITileEffect {
     public override void PlayEffect() {
         audioSource.Play();
 
-        targetPos = playerTransform.position + selectionOutline.Direction * tileWidth * 2.0f;
+        targetPos = playerTransform.position + playerControlVR.Direction * tileWidth * 2.0f;
         Vector3 launchImpulse = LaunchVelocity(targetPos, launchAngleDeg);
         playerRigidbody.useGravity = true;
         playerRigidbody.isKinematic = false;
@@ -67,9 +67,11 @@ public class TileSpring : ITileEffect {
             yield return null;
         }
 
-        playerRigidbody.useGravity = false;
-        playerRigidbody.isKinematic = true;
+        if (playerControlVR.CheckCollision()) {
+            playerRigidbody.useGravity = false;
+            playerRigidbody.isKinematic = true;
 
-        playerTransform.position = targetPos;
+            playerTransform.position = targetPos;
+        }
     }
 }

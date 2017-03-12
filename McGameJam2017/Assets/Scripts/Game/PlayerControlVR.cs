@@ -100,8 +100,8 @@ public class PlayerControlVR : MonoBehaviour {
 
     private Transform RaycastFloor() {
         Quaternion headRotation = InputTracking.GetLocalRotation(VRNode.Head);
-        //Vector3 rayRotation = headRotation * Vector3.forward;                         // VR
-        Vector3 rayRotation = headRotation * cameraVr.transform.forward;              // PC
+        Vector3 rayRotation = headRotation * Vector3.forward;                         // VR
+        //Vector3 rayRotation = headRotation * cameraVr.transform.forward;              // PC
 
         Ray rayDirection = new Ray(transform.position, rayRotation);
         if (Physics.Raycast(rayDirection, out hit, cubeMask)) {
@@ -146,5 +146,23 @@ public class PlayerControlVR : MonoBehaviour {
                 }
             }
         }
+    }
+
+
+    public bool CheckCollision() {
+        bool collisionFound = false;
+        Ray rayDirection = new Ray(transform.position, Vector3.down);
+        if (Physics.Raycast(rayDirection, out hit, cubeMask)) {
+            if (Mathf.Abs(this.transform.position.y - hit.transform.position.y) <= cameraHeight + targetableHeightMargin) {
+                ITileEffect tileEffect = hit.transform.gameObject.GetComponent<ITileEffect>();
+                if (tileEffect) {
+                    tileEffect.PlayEffect();
+                }
+
+                collisionFound = true;
+            }
+        }
+
+        return collisionFound;
     }
 }
