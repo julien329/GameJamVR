@@ -28,7 +28,8 @@ public class MapGenerator : MonoBehaviour {
         // Charger la map par defaut
         // Pour l'instant la seule map c<est-a-dire test.
         Map map = new Map();
-        map.readMapFile("test");
+        //map.readMapFile("test");
+        map.readMapFile("mapCustom");
         generateMap(map);
 
     }

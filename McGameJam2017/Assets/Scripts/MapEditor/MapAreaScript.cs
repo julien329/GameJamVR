@@ -104,4 +104,28 @@ public class MapAreaScript : MonoBehaviour {
             mapTiles[y][x].GetComponent<MapTile>().tileType = type;
         }
     }
+
+    // Save
+    public void Save()
+    {
+        // Call a function of Map that uses the floors to create a save (text file).
+        Map tempMap = new Map();
+        tempMap.saveMapFromEditor(floor1, floor2, floor3);
+    }
+
+    // Load
+    public void Load()
+    {
+        // Call a function of map generator that returns the floor from a text file.
+        Map tempMap = new Map();
+        int[][,] floors = tempMap.loadMapToEditor();
+
+        floor1 = floors[0];
+        floor2 = floors[1];
+        floor3 = floors[2];
+
+        // Update the visual (tiles color)
+        SelectFloor(currentFloor);
+    }
+
 }

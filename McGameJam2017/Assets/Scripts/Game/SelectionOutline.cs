@@ -9,6 +9,8 @@ public class SelectionOutline : MonoBehaviour {
     /// VARIABLES
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
+    public Vector3 Direction { get { return direction; } }
+
     [SerializeField]
     private Camera cameraVr;
     [SerializeField]
@@ -28,6 +30,7 @@ public class SelectionOutline : MonoBehaviour {
 
     private RaycastHit hit;
     private bool isMoving = false;
+    private Vector3 direction;
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -83,11 +86,12 @@ public class SelectionOutline : MonoBehaviour {
 
     private Transform RaycastFloor() {
         Quaternion headRotation = InputTracking.GetLocalRotation(VRNode.Head);
-        Vector3 rayRotation = headRotation * Vector3.forward;
+        Vector3 rayRotation = headRotation * cameraVr.transform.forward;
+        //Vector3 rayRotation = headRotation * Vector3.forward;
 
         Ray rayDirection = new Ray(transform.position, rayRotation);
         if (Physics.Raycast(rayDirection, out hit, cubeMask)) {
-            if ((transform.position.y - hit.transform.position.y) == cameraHeight) {
+            if ((this.transform.position.y - hit.transform.position.y) == cameraHeight) {
                 return hit.transform;
             }
         }
@@ -97,10 +101,10 @@ public class SelectionOutline : MonoBehaviour {
 
 
     private IEnumerator MoveToOutline() {
-        isMoving = true;
         Vector3 lastPos = this.transform.position;
         Vector3 targetPos = new Vector3(outlineTransform.position.x, this.transform.position.y, outlineTransform.position.z);
-        Vector3 direction = Vector3.Normalize(targetPos - this.transform.position);
+        isMoving = true;
+        direction = Vector3.Normalize(targetPos - this.transform.position);
 
         float distance = Vector3.Distance(this.transform.position, targetPos);
         while(distance > 0) {
@@ -112,5 +116,20 @@ public class SelectionOutline : MonoBehaviour {
 
         this.transform.position = targetPos;
         isMoving = false;
+
+        CheckTileEffect();
+    }
+
+
+    private void CheckTileEffect() {
+        Ray rayDirection = new Ray(transform.position, Vector3.down);
+        if (Physics.Raycast(rayDirection, out hit, cubeMask)) {
+            if ((this.transform.position.y - hit.transform.position.y) == cameraHeight) {
+                ITileEffect tileEffect = hit.transform.gameObject.GetComponent<ITileEffect>();
+                if(tileEffect) {
+                    tileEffect.PlayEffect();
+                }
+            }
+        }
     }
 }

@@ -154,8 +154,8 @@ public class Map {
 
                         /*if (j != (dim1 - 1))
                         {*/
-                            levelDesign = levelDesign + "\r\n";
-                        /*}*/ 
+                        levelDesign = levelDesign + "\r\n";
+                        /*}*/
                     }
                 }
 
@@ -254,7 +254,7 @@ public class Map {
         //floorVR = new Floor[nbrLevel] { new Floor(), new Floor(), new Floor() };
         for (int i = 0; i < nbrLevel; i++)
         {
-            floorVR.Add( new Floor());
+            floorVR.Add(new Floor());
         }
 
         for (int i = 0; i < nbrLevel; i++)
@@ -263,7 +263,7 @@ public class Map {
             {
                 for (int k = 0; k < dim2; k++)
                 {
-                    floorVR[i].Tiles[j][k] = levelVR[i*(dim1*dim2) + j * dim2 + k];
+                    floorVR[i].Tiles[j][k] = levelVR[i * (dim1 * dim2) + j * dim2 + k];
                 }
             }
         }
@@ -271,4 +271,71 @@ public class Map {
 
     }
 
+    #region fonctions pour l'editeur
+
+    // Pour l'instant, il y a une seule map personnalisable: mapCustom.
+
+    public void saveMapFromEditor(int[,] floor1, int[,] floor2, int[,] floor3)
+    {
+        // La structure des maps de l'editeur sont la suivante: 16 x 32, 16 ranges et 32 colonnes, il faut donc adapter au Map qui sont fait de floor 32 ranges par 16 colonnes.
+        int[][,] editorFloors = new int[][,] { floor1, floor2, floor3 };
+        // Conversion des arrays
+        int dim1 = Floor.Dim1;
+        int dim2 = Floor.Dim2;
+        int nbrLevel = 3; // On fait 3 etages mais s'il y en a des vides.
+
+        // Reinitialisation de la liste.
+        floorVR = new List<Floor>();
+        for (int i = 0; i < nbrLevel; i++)
+        {
+            floorVR.Add(new Floor());
+        }
+
+        // On parcours les Floor de la liste floorVR pour remplir avec les infos de l'editeur.
+        for (int i = 0; i < nbrLevel; i++)
+        {
+            for (int j = 0; j < dim1; j++)
+            {
+                for (int k = 0; k < dim2; k++)
+                {
+                    floorVR[i].Tiles[j][k] = (char)editorFloors[i][k, dim1 - (j + 1)];
+                }
+            }
+        }
+
+
+        // write
+        writeMapFile("mapCustom");
+    }
+
+    public int[][,] loadMapToEditor()
+    {
+        // charger la map custom // Remplir les floorVR
+        readMapFile("mapCustom");
+
+        // Conversion des arrays
+        int dim1 = Floor.Dim1;
+        int dim2 = Floor.Dim2;
+        int nbrLevel = 3; // On fait 3 etages mais s'il y en a des vides.
+
+        int[][,] floors = new int[][,] { new int[dim2, dim1], new int[dim2, dim1], new int[dim2, dim1] };
+
+        // On parcours les Floor de la liste floorVR pour remplir avec les infos de l'editeur.
+        for (int i = 0; i < nbrLevel; i++)
+        {
+            for (int j = 0; j < dim1; j++)
+            {
+                for (int k = 0; k < dim2; k++)
+                {
+                    //floorVR[i].Tiles[j][k] = (char)floors[i][k, dim1 - (j + 1)];
+                    floors[i][k, dim1 - (j + 1)] = floorVR[i].Tiles[j][k];
+                }
+            }
+        }
+
+        //les etages vide (non existant) sont remplit de HOLE
+        return floors;
+    }
+
+    #endregion
 }
