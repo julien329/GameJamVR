@@ -84,9 +84,9 @@ public class PlayerControlVR : NetworkBehaviour {
     ////////////////////////////////////////////////////////////////////////////////////////////////
     /// METHODS
     ////////////////////////////////////////////////////////////////////////////////////////////////
-
-    private bool UpdateOutlineBox() {
 #if UNITY_ANDROID
+    private bool UpdateOutlineBox() {
+
         Transform objectHit = RaycastFloor();
         if (objectHit && !isMoving) {
             outlineTransform.position = objectHit.position;
@@ -114,9 +114,9 @@ public class PlayerControlVR : NetworkBehaviour {
             outlineRefused.SetActive(false);
             return false;
         }
-#endif
     }
-
+    
+#endif
 
     private Transform RaycastFloor() {
 
