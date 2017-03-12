@@ -26,9 +26,13 @@ public class PlayerControl : NetworkBehaviour {
     gameObject.name = "PcPlayer";
         GameObject.Find("PlayerMod").transform.SetParent(gameObject.transform);
         GameObject.Find("ServerInfo").GetComponent<ServerSync>().HardResetPos();
-        gameObject.AddComponent<Camera>();
+        gameObject.GetComponent<PlayerControlVR>().cameraVr = gameObject.AddComponent<Camera>();
 #else
      gameObject.name = "MobilePlayer";
+        var cam = Resources.Load("Prefabs/MainCamera") as GameObject;
+        Instantiate(cam, this.transform);
+        var vr = Resources.Load("Prefabs/GvrViewerMain") as GameObject;
+        gameObject.GetComponent<PlayerControlVR>().cameraVr = Instantiate(cam, this.transform);
 #endif
 
     }

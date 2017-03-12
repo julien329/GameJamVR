@@ -13,7 +13,7 @@ public class PlayerControlVR : NetworkBehaviour {
     public Vector3 Direction { get { return direction; } }
 
     [SerializeField]
-    private Camera cameraVr;
+    public Camera cameraVr;
     [SerializeField]
     private Transform outlineTransform;
     [SerializeField]
@@ -42,10 +42,10 @@ public class PlayerControlVR : NetworkBehaviour {
 
     void Start() {
 #if UNITY_ANDROID
-        var cam = Resources.Load("Prefabs/MainCamera") as GameObject;
-        Instantiate(cam, this.transform);
-        var vr = Resources.Load("Prefabs/GvrViewerMain") as GameObject;
-        Instantiate(cam, this.transform);
+        //var cam = Resources.Load("Prefabs/MainCamera") as GameObject;
+        //Instantiate(cam, this.transform);
+        //var vr = Resources.Load("Prefabs/GvrViewerMain") as GameObject;
+        //Instantiate(cam, this.transform);
 #else
         
         //cameraVr = Instantiate(cameraVr, this.transform) as Camera;
