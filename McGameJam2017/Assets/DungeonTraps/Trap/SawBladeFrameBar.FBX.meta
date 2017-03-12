@@ -1,17 +1,14 @@
 fileFormatVersion: 2
-guid: 1b781ad67e8a54061b9897ddfbfdb479
-timeCreated: 1478024238
-licenseType: Pro
+guid: 45cdd7be55c783844add8ed6d9828f62
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
-    100002: cubeRoomEnv
     400000: //RootNode
-    400002: cubeRoomEnv
-    2300000: cubeRoomEnv
-    3300000: cubeRoomEnv
-    4300000: cubeRoomEnv
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: SawBladeFrameBar
+    9500000: //RootNode
   materials:
     importMaterials: 1
     materialName: 0
@@ -36,7 +33,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.01
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
@@ -50,11 +47,11 @@ ModelImporter:
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
-    useFileScale: 1
+    useFileScale: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
-    tangentImportMode: 3
+    tangentImportMode: 4
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
